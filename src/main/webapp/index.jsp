@@ -8,7 +8,7 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<textarea>PROVA </textarea>
+<textarea>PROVA  </textarea>
 <a href="hello-servlet">Hello Servlet</a>
 </body>
 </html>
