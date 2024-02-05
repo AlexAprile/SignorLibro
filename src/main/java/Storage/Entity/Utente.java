@@ -1,6 +1,7 @@
 package Storage.Entity;
 
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 public class Utente {
 
@@ -71,8 +72,12 @@ public class Utente {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Utente utente = (Utente) o;
+        return admin == utente.admin && Objects.equals(mail, utente.mail) && Objects.equals(password, utente.password) && Objects.equals(nome, utente.nome) && Objects.equals(cognome, utente.cognome) && Objects.equals(nascita, utente.nascita);
     }
 
 }
