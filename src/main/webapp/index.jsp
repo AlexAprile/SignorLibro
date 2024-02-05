@@ -4,6 +4,7 @@
 <head>
     <title>Signor Libro</title>
     <link rel="icon" type="image/x-icon" href="./icons/vettoreVerde.png">
+    <jsp:include page="WEB-INF/navbar.jsp"></jsp:include>
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>
@@ -12,5 +13,9 @@
     <img src="./icons/logoVerde.png" alt="SignorLibro Logo" title="SignorLibro Logo">
 </div>
 <br/>
+
+<footer>
+    <jsp:include page="/WEB-INF/footer.jsp" flush="true"/>
+</footer>
 </body>
 </html>
