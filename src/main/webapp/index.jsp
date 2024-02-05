@@ -2,11 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Signor Libro</title>
+    <link rel="icon" type="image/x-icon" href="./icons/vettoreVerde.png">
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>
-<h1>Prova
-</h1>
+<h1 class="title">Signor Libro</h1>
+<div>
+    <img src="./icons/logoVerde.png" alt="SignorLibro Logo" title="SignorLibro Logo">
+</div>
 <br/>
 </body>
 </html>

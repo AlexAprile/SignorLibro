@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    overflow-y: scroll;
+}
+
+div.title {
+    text-align:center;
+    background-color: #137231;
+    padding: 20px;
+    margin: 0;
+    font-family: "Comic Sans MS", sans-serif;
+}
+
+h1.title {
+    color: #137231;
+    text-align: center;
+    font-family: "Comic Sans MS", sans-serif;
+    font-weight: bold;
+}
