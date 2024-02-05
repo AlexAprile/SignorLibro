@@ -10,7 +10,6 @@ import java.util.List;
 
 public class UtenteDAO {
     /**
-     *
      * restituisce gli account presenti nel DB
       * @return
      * @throws SQLException
@@ -18,7 +17,7 @@ public class UtenteDAO {
      */
     public List<Utente> fetchUsers() throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPool.getConnection()){
-            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM Account;")){
+            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user;")){
                 ResultSet rs= ps.executeQuery();
                 List<Utente> accounts=new ArrayList<>();
 
@@ -49,12 +48,12 @@ public class UtenteDAO {
     }
     public Utente fetchUser(String email) throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPool.getConnection()){
-            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM User WHERE Email=?")){
+            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user WHERE Email=?")){
                 ps.setString(1,email);
                 ResultSet rs= ps.executeQuery();
                 if(rs.next()){
-                    if(!rs.getBoolean("admin")) {
-                        Utente user = new Utente(rs.getString("email"),
+                    if(!rs.getBoolean("Amministratore")) {
+                        Utente user = new Utente(rs.getString("Email"),
                                 rs.getString("Password"),
                                 rs.getString("Nome"),
                                 rs.getString("Cognome"),
@@ -74,7 +73,7 @@ public class UtenteDAO {
     }
     public Integer createUser(Utente user) throws SQLException {
         try (Connection conn= ConPool.getConnection()){
-            try (PreparedStatement ps= conn.prepareStatement("INSERT INTO User (Email,Password,Nome,Cognome, Data_di_nascita,Amministratore) VALUES (?,?,?,?,?,?);")){
+            try (PreparedStatement ps= conn.prepareStatement("INSERT INTO user (Email,Password,Nome,Cognome, Data_di_nascita,Amministratore) VALUES (?,?,?,?,?,?);")){
                 ps.setString(1,user.getMail());
                 ps.setString(2,user.getPassword());
                 ps.setString(3,user.getNome());
@@ -87,7 +86,7 @@ public class UtenteDAO {
     }
     public Integer deleteUser(String email) throws SQLException {
         try (Connection conn= ConPool.getConnection()){
-            try (PreparedStatement ps= conn.prepareStatement("DELETE FROM User WHERE email=?")){
+            try (PreparedStatement ps= conn.prepareStatement("DELETE FROM user WHERE Email=?")){
                 ps.setString(1,email);
                 return ps.executeUpdate();
             }
