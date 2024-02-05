@@ -15,15 +15,15 @@ public class Carrello {
         return carrello;
     }
 
-    public void setCartItems(ArrayList<ProdottoCarrello> cartItems) {
+    public void setCarrello(ArrayList<ProdottoCarrello> cartItems) {
         this.carrello = cartItems;
     }
 
-    public void addProduct(Prodotto p, int q){
+    public void aggiungiProdotto(Prodotto p, int q){
         carrello.add(new ProdottoCarrello(p,q));
     }
 
-    public void removeProduct(Prodotto p){
+    public void rimuoviProdotto(Prodotto p){
 
         for (int i=0; i<carrello.size(); i++){
 
