@@ -1,6 +1,9 @@
 package Storage.Entity;
 
 public class ProdottoOrdine extends Prodotto{
+    /**
+     * quantitaOrdine deve essere >0
+     */
     private int quantitaOrdine;
     private int idOrdine;
     public ProdottoOrdine(String titolo, String autore, String isbn, double prezzo, String copertina, String categoria, int quantita) {
@@ -12,7 +15,9 @@ public class ProdottoOrdine extends Prodotto{
     }
 
     public void setQuantitaOrdine(int quantitaOrdine) {
-        this.quantitaOrdine = quantitaOrdine;
+        if(quantitaOrdine>0)
+            this.quantitaOrdine = quantitaOrdine;
+        else throw new RuntimeException("la quantita deve essere > 0");
     }
 
     public int getQuantitaOrdine() {
