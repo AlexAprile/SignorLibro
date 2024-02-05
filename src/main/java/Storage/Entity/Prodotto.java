@@ -1,29 +1,29 @@
 package Storage.Entity;
 
-import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Prodotto {
     private int id;
     private String titolo;
     private String autore;
-    /**
-     * prezzo >=0
+
+    /** Il prezzo deve essere positivo
+     * @invariant prezzo >= 0
      */
     private double prezzo;
     private String descrizione;
+
     private String copertina;
     /**
-     * la dataPubblicazione deve essere precedente o uguale
-     * a quella di corrente
+     * La dataPubblicazione deve essere precedente o uguale
+     * a quella corrente
      */
     private Date dataPubblicazione;
     private String categoria;
     private String isbn;
     /**
-     * l'attributo quantita deve essere >=0
+     * l'attributo "quantita" deve essere >=0
      * se è >0 è disponibile
      * se è =0 non è disponibile
      */

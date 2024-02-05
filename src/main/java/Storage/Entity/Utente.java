@@ -1,11 +1,9 @@
 package Storage.Entity;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Objects;
 
 public class Utente {
-
     private String mail;
     private String password;
     private String nome;
@@ -78,7 +76,12 @@ public class Utente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Utente utente = (Utente) o;
-        return admin == utente.admin && Objects.equals(mail, utente.mail) && Objects.equals(password, utente.password) && Objects.equals(nome, utente.nome) && Objects.equals(cognome, utente.cognome) && Objects.equals(nascita, utente.nascita);
+        return admin == utente.admin
+                && Objects.equals(mail, utente.mail)
+                && Objects.equals(password, utente.password)
+                && Objects.equals(nome, utente.nome)
+                && Objects.equals(cognome, utente.cognome)
+                && Objects.equals(nascita, utente.nascita);
     }
 
 }
