@@ -1,5 +1,6 @@
 package Storage.Entity;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
@@ -9,10 +10,10 @@ public class Utente {
     private String password;
     private String nome;
     private String cognome;
-    private GregorianCalendar nascita;
+    private Date nascita;
     private boolean admin;
 
-    public Utente(String mail, String password, String nome, String cognome, GregorianCalendar nascita, boolean admin) {
+    public Utente(String mail, String password, String nome, String cognome, Date nascita, boolean admin) {
         this.mail = mail;
         this.password = password;
         this.nome = nome;
@@ -60,11 +61,11 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public GregorianCalendar getNascita() {
+    public Date getNascita() {
         return nascita;
     }
 
-    public void setNascita(GregorianCalendar nascita) {
+    public void setNascita(Date nascita) {
         this.nascita = nascita;
     }
 
