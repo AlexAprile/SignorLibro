@@ -6,9 +6,7 @@
 <body>
 <!-- logo  -->
 <div id="head">
-    <div class="img" align="center">
-        <img id="logo" src="images/logo.png">
-    </div>
+
 </div>
 
 
