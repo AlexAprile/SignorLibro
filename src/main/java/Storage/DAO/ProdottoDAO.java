@@ -44,11 +44,10 @@ public class ProdottoDAO {
         }
     }
 
-    public ArrayList<Prodotto> cercaTuttiProdotti(String ISBN) throws SQLException {
+    public ArrayList<Prodotto> cercaTuttiProdotti() throws SQLException {
         try(Connection connection= ConPool.getConnection()) {
             String query = "SELECT *  FROM Prodotto;";
             try (PreparedStatement ps = connection.prepareStatement(query)) {
-                ps.setString(1, ISBN);
                 ResultSet rs = ps.executeQuery();
                 Prodotto prodotto = null;
                 ProductExtractor extractor = new ProductExtractor();
