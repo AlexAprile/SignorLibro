@@ -1,5 +1,6 @@
 package Storage.Entity;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,6 +30,7 @@ public class Prodotto {
      */
     private int quantita;
 
+    public Prodotto(){}
     public Prodotto(String titolo, String autore, String isbn, double prezzo, String copertina, String categoria, int quantita) {
         this.titolo = titolo;
         this.autore = autore;
@@ -104,4 +106,26 @@ public class Prodotto {
     public String getTitolo() {
         return titolo;
     }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
+    public void setAutore(String autore) {
+        this.autore = autore;
+    }
+
+    public void setCopertina(String copertina) {
+        this.copertina = copertina;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 }
+
+
