@@ -26,20 +26,27 @@ public class ProdottoDAO {
         }
     }
 
-    public ArrayList<Prodotto> cercaPerISBN(String ISBN) throws SQLException {
+    public Prodotto cercaPerISBN(String ISBN) throws SQLException {
         try(Connection connection= ConPool.getConnection()) {
             String query = "SELECT *  FROM Prodotto AS pro WHERE (pro.ISBN=?);";
             try (PreparedStatement ps = connection.prepareStatement(query)) {
                 ps.setString(1, ISBN);
                 ResultSet rs = ps.executeQuery();
                 Prodotto prodotto = null;
-                ProductExtractor extractor = new ProductExtractor();
-                ArrayList<Prodotto> products = new ArrayList<>();
-                while (rs.next()) {
-                    prodotto = extractor.extract(rs);
-                    products.add(prodotto);
+                if(rs.next()){
+                    prodotto=new Prodotto();
+                    prodotto.setId(rs.getInt("ID"));
+                    prodotto.setTitolo(rs.getString("titolo"));
+                    prodotto.setAutore(rs.getString("autore"));
+                    prodotto.setIsbn(rs.getString("is"));
+                    prodotto.setPrezzo(rs.getDouble("prezzo"));
+                    prodotto.setDescrizione(rs.getString("descrizione"));
+                    prodotto.setCategoria(rs.getString("categoria"));
+                    prodotto.setQuantita(rs.getInt("quantita"));
+                    prodotto.setDataPubblicazione(rs.getDate("dara_pubblicazione"));
+                    prodotto.setCopertina(rs.getString("copertina"));
                 }
-                return products;
+                return prodotto;
             }
         }
     }
