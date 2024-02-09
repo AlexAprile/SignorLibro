@@ -75,7 +75,6 @@ li div.search button[type="submit"]{
     cursor: pointer;
     border-radius: 6px;
 }
-
 @media screen and (max-width: 820px) {
     ul.navbar{
         position: static;

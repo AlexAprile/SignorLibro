@@ -3,7 +3,6 @@ package Storage.Entity;
 import java.util.ArrayList;
 
 public class Carrello {
-
     private ArrayList<ProdottoCarrello> carrello;
 
 
@@ -56,8 +55,9 @@ public class Carrello {
         double total=0;
 
         for (ProdottoCarrello pc: carrello) {
-
-            total+=pc.getProdotto().getPrezzo();
+            //somma il prodotto presente nel carrello per
+            //il suo prezzo cadauno e la sua quantità
+            total+=(pc.getProdotto().getPrezzo()*pc.getQuantita());
         }
         return total;
     }

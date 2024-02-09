@@ -4,7 +4,7 @@
 <head>
     <title>Signor Libro</title>
     <link rel="icon" type="image/x-icon" href="./icons/vettoreVerde.png">
-    <jsp:include page="WEB-INF/navbar.jsp"></jsp:include>
+    <jsp:include page="WEB-INF/Interface/navbar.jsp"></jsp:include>
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
 <br/>
 
 <footer>
-    <jsp:include page="/WEB-INF/footer.jsp" flush="true"/>
+    <jsp:include page="/WEB-INF/Interface/footer.jsp" flush="true"/>
 </footer>
 </body>
 </html>
