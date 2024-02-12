@@ -1,3 +1,4 @@
+<%@ page import="Storage.Entity.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -22,7 +23,14 @@
 
     <span id="icon">
       <li class="right"><a href="cart"><span class="fas fa-shopping-cart cart-icon"></span></a></li>
-      <li class="right"><a href="signin"><div class="material-icons" id="person">person</div></a></li>
+
+        <% Utente utente = (Utente) request.getSession().getAttribute("utente");
+            if(utente != null) {
+        %>
+            <li class="second"><a href="direct-servlet">${utente.nome} ${utente.cognome}</a></li>
+            <% }else{ %>
+            <li class="right"><a href="signin"><div class="material-icons" id="person">person</div></a></li>
+            <% } %>
     </span>
 
   </ul>
