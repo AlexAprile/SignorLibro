@@ -60,7 +60,7 @@ public class RegistrazioneController extends HttpServlet {
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String dataNascita = request.getParameter("nascita");
-        Date nascita = null;
+        Date nascita = new Date(dataNascita);
 
         Utente utente;
 
