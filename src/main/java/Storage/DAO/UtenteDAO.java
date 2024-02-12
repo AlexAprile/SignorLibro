@@ -71,7 +71,7 @@ public class UtenteDAO {
             }
         }
     }
-    public Integer createUser(Utente user) throws SQLException {
+    public Integer createUser(Utente user){
         try (Connection conn= ConPool.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("INSERT INTO user (Email,Password,Nome,Cognome, Data_di_nascita,Amministratore) VALUES (?,?,?,?,?,?);")){
                 ps.setString(1,user.getMail());
@@ -82,8 +82,12 @@ public class UtenteDAO {
                 ps.setBoolean(6, user.isAdmin());
                 return ps.executeUpdate();
             }
+        } catch (SQLException e) {
+        throw new RuntimeException(e);
         }
+
     }
+
     public Integer deleteUser(String email) throws SQLException {
         try (Connection conn= ConPool.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("DELETE FROM user WHERE Email=?")){

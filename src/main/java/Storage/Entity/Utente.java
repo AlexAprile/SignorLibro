@@ -11,6 +11,9 @@ public class Utente {
     private Date nascita;
     private boolean admin;
 
+    public Utente() {
+    }
+
     public Utente(String mail, String password, String nome, String cognome, Date nascita, boolean admin) {
         this.mail = mail;
         this.password = password;
