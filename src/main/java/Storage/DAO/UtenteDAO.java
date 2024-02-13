@@ -25,7 +25,7 @@ public class UtenteDAO {
                     //in questo ciclo vengono presi tutti gli account presenti nel
                     //database se non è un admin l'utente corrente
                     //viene usato il costruttore completo altimenti
-                    //quello con solo email,password e admin
+                    //quello con solo email, password e admin
                     if(!rs.getBoolean("Amministratore")) {
                         Utente user = new Utente(rs.getString("Email"),
                                 rs.getString("Password"),
@@ -66,6 +66,26 @@ public class UtenteDAO {
                                 rs.getBoolean("Amministratore"));
                         return admin;
                     }
+                }
+                return null;
+            }
+        }
+    }
+
+    public Utente fetchAccountWithPsw(String email,String psw) throws SQLException, NoSuchAlgorithmException {
+        try(Connection conn= ConPool.getConnection()){
+            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM account WHERE email=? AND psw=SHA1(?)")){
+                ps.setString(1,email);
+                ps.setString(2,psw);
+                ResultSet rs= ps.executeQuery();
+                if(rs.next()){
+                    Utente user = new Utente(rs.getString("Email"),
+                            rs.getString("Password"),
+                            rs.getString("Nome"),
+                            rs.getString("Cognome"),
+                            rs.getDate("Data_di_nascita"),
+                            rs.getBoolean("Amministratore"));
+                    return user;
                 }
                 return null;
             }
