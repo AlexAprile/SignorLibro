@@ -25,7 +25,7 @@ public class AutenticaztoneService {
         } catch (InvalidRequestException e) {
             throw new RuntimeException(e);
         }
-        Utente utente= (Utente) session.getAttribute("account");
-        session.removeAttribute("account");
+        Utente utente= (Utente) session.getAttribute("utente");
+        session.removeAttribute("utente");
     }
 }

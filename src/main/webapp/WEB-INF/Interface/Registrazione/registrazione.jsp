@@ -1,4 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="product" class="Storage.Entity.Prodotto" scope="request"/>
+
 <html>
 <head>
   <title>Registrazione</title>
@@ -17,7 +21,9 @@
   <legend>Form inserimento:</legend>
 
   <form action="registrazione-controller" method="post">
-
+    <c:if test="${not empty alert}">
+      <%@ include file="/WEB-INF/Interface/errori/alert.jsp"%>
+    </c:if>
     <label for="email">e-Mail</label>
     <input type="email" id="email" name="email"
            placeholder="nomecognome@signorlibro.it"
