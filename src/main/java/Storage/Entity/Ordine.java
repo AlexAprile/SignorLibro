@@ -1,16 +1,25 @@
 package Storage.Entity;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class Ordine {
     String emailUtente;
     float totale;
-    ArrayList<ProdottoOrdine> prodotti;
 
-    public Ordine(String emailUtente, float totale, ArrayList<ProdottoOrdine> prodotti) {
+    Date dataOrdine;
+    ArrayList<ProdottoCarrello> prodotti;
+
+    public Ordine(String emailUtente, float totale, ArrayList<ProdottoCarrello> prodotti, java.util.Date dataOrdine) {
         this.emailUtente = emailUtente;
         this.totale = totale;
         this.prodotti = prodotti;
+        this.dataOrdine = (Date) dataOrdine;
+    }
+
+    public Ordine() {
+
     }
 
 
@@ -30,11 +39,15 @@ public class Ordine {
         this.totale = totale;
     }
 
-    public ArrayList<ProdottoOrdine> getProdotti() {
+    public ArrayList<ProdottoCarrello> getProdotti() {
         return prodotti;
     }
 
-    public void setProdotti(ArrayList<ProdottoOrdine> prodotti) {
+    public void setProdotti(ArrayList<ProdottoCarrello> prodotti) {
         this.prodotti = prodotti;
+    }
+
+    public Date getDataOrdine() {
+        return dataOrdine;
     }
 }
