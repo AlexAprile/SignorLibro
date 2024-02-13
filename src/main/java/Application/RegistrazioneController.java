@@ -26,7 +26,7 @@ public class RegistrazioneController extends HttpServlet {
      * Altrimenti se form mandato, allora viene registrato
      * */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String address;
+        String address = null;
 
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");

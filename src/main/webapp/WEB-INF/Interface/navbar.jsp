@@ -29,7 +29,7 @@
         %>
             <li class="second"><a href="direct-servlet">${utente.nome} ${utente.cognome}</a></li>
             <% }else{ %>
-            <li class="right"><a href="signin"><div class="material-icons" id="person">person</div></a></li>
+            <li class="right"><a href="registrazione-controller"><div class="material-icons" id="person">person</div></a></li>
             <% } %>
     </span>
 
