@@ -1,5 +1,7 @@
 package Application;
 
+import Storage.GestioneAcquistiService;
+import Storage.GestioneProdottoService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -14,13 +16,28 @@ public class GestioneAcquistoController extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 
         HttpSession session;
+        String id;
+        GestioneAcquistiService gas = new GestioneAcquistiService();
 
         switch (path){
             case"/showCartGuest":
-                System.out.println("ciao");
                 dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/carrello.jsp");
                 dispatcher.forward(request,response);
                 break;
+
+            case"/addCart":
+                id = request.getParameter("idISBN");
+                gas.aggiungiProdottoAlCarrello(id,request,response);
+                dispatcher= request.getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request,response);
+                break;
+
+            case "/rimuoviCarrello":
+                id = request.getParameter("idISBN");
+                gas.rimuoviProdottoDalCarrello(id,request,response);
+                dispatcher= request.getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request,response);
+
         }
     }
 
