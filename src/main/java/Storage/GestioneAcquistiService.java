@@ -56,4 +56,26 @@ public class GestioneAcquistiService {
 
         return false;
     }
+
+    public void rimuoviProdottoDalCarrello(String isbn, HttpServletRequest request, HttpServletResponse response) {
+
+        String idProdotto2 = request.getParameter("id");
+        try {
+            ProdottoDAO pd = new ProdottoDAO();
+            Prodotto product = pd.cercaPerISBN(idProdotto2);
+
+
+            Carrello cart1 = (Carrello) request.getSession().getAttribute("carrello");
+            cart1.rimuoviProdotto(product);
+            request.getSession(false).setAttribute("totale", Math.round(cart1.prezzoTotale() * 100.0) / 100.0);
+            request.getSession(false).setAttribute("carrello", cart1);
+            request.getSession(false).setAttribute("quantity", cart1.getCartItems().size());
+            response.sendRedirect("/GameOver_war_exploded/CartServlet/showCart");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
