@@ -9,7 +9,7 @@
 <body>
 <ul class="navbar">
     <li class="left">
-      <a class="active" href="./index.jsp">Home</a>
+      <a class="active" href="../../index.jsp">Home</a>
     </li>
 
     <li class="left">
@@ -22,7 +22,7 @@
     </li>
 
     <span id="icon">
-      <li class="right"><a href="cart"><span class="fas fa-shopping-cart cart-icon"></span></a></li>
+      <li class="right"><a href="/SignorLibro_war/GestioneAcquistoController/showCartGuest"><span class="fas fa-shopping-cart cart-icon"></span></a></li>
 
         <% Utente utente = (Utente) request.getSession().getAttribute("utente");
             if(utente != null) {
