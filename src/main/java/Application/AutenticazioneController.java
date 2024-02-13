@@ -5,6 +5,7 @@ import Storage.DAO.CarrelloDAO;
 import Storage.DAO.UtenteDAO;
 import Storage.Entity.Carrello;
 import Storage.Entity.Utente;
+import http.ErrorHandler;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
-@WebServlet(name = "AurenticazioneController", value = "/AutenticazioneServlet/*")
+@WebServlet(name = "AutenticazioneController", value = "/AutenticazioneController/*")
 public class AutenticazioneController extends HttpServlet {
     String address;
 
@@ -33,6 +34,10 @@ public class AutenticazioneController extends HttpServlet {
         RequestDispatcher dispatcher;
 
         switch (path){
+            case"/signin":
+                address="/WEB-INF/Interface/signin.jsp";
+                req.getRequestDispatcher(address).forward(req,resp);
+                break;
             case "/login":
                 try {
                     Utente utente = service.login(email,password);
@@ -70,8 +75,7 @@ public class AutenticazioneController extends HttpServlet {
                 dispatcher.forward(req,resp);
                 break;
             case "/logout":
-
-                service.logout(req.getSession());
+                service.logout(req.getSession(false));
                 resp.sendRedirect("/WEB-INF/index.jsp");
                 break;
         }
