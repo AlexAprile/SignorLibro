@@ -32,10 +32,10 @@ public class RegistrazioneService {
 
         Utente utente;
 
+        /*
         String errore = "";
 
-
-        /*if(nome.length()<1 || nome.length()>50)
+        if(nome.length()<1 || nome.length()>50)
             errore += "Nome digitato troppo breve o troppo lungo";
 
         if(cognome.length()<1 || cognome.length()>50)
