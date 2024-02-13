@@ -11,6 +11,8 @@ public class Ordine {
     Date dataOrdine;
     ArrayList<ProdottoCarrello> prodotti;
 
+    int id;
+
     public Ordine(String emailUtente, float totale, ArrayList<ProdottoCarrello> prodotti, java.util.Date dataOrdine) {
         this.emailUtente = emailUtente;
         this.totale = totale;
@@ -49,5 +51,9 @@ public class Ordine {
 
     public Date getDataOrdine() {
         return dataOrdine;
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -1,5 +1,6 @@
 package Storage;
 
+import Storage.DAO.OrdineDAO;
 import Storage.DAO.ProdottoDAO;
 import Storage.Entity.*;
 import jakarta.servlet.RequestDispatcher;
@@ -105,7 +106,8 @@ public class GestioneAcquistiService {
 
 
             try {
-                OrdineDAO.createOrder(o);
+                OrdineDAO od = new OrdineDAO();
+                od.createOrder(o);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
