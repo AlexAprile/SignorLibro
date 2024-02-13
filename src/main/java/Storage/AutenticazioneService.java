@@ -10,7 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 
-public class AutenticaztoneService {
+public class AutenticazioneService {
+
     public Utente login(String email,String password) throws SQLException, NoSuchAlgorithmException {
         UtenteDAO dao=new UtenteDAO();
         Utente utente=null;
@@ -18,6 +19,7 @@ public class AutenticaztoneService {
             utente=dao.fetchAccountWithPsw(email, password);
         return utente;
     }
+
     public void logout(HttpSession session){
         ErrorHandler service=new ErrorHandler();
         try {

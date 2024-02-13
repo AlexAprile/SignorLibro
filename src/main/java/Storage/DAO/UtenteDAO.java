@@ -15,7 +15,9 @@ public class UtenteDAO {
      * @throws SQLException
      * @throws NoSuchAlgorithmException
      */
-    public List<Utente> fetchUsers() throws SQLException, NoSuchAlgorithmException {
+
+
+    public static List<Utente> fetchUsers() throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPool.getConnection()){
             try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user;")){
                 ResultSet rs= ps.executeQuery();

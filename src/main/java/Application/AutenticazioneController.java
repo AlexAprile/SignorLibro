@@ -1,11 +1,9 @@
 package Application;
 
-import Storage.AutenticaztoneService;
+import Storage.AutenticazioneService;
 import Storage.DAO.CarrelloDAO;
-import Storage.DAO.UtenteDAO;
 import Storage.Entity.Carrello;
 import Storage.Entity.Utente;
-import http.ErrorHandler;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,7 +26,7 @@ public class AutenticazioneController extends HttpServlet {
         String password = req.getParameter("password");
 
         address = "";
-        AutenticaztoneService service=new AutenticaztoneService();
+        AutenticazioneService service=new AutenticazioneService();
 
         String  path=(req.getPathInfo()!=null) ? req.getPathInfo():"/";
         RequestDispatcher dispatcher;
