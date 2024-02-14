@@ -16,7 +16,7 @@ public class GestioneAcquistoController extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 
         HttpSession session;
-        String id;
+        String isbn;
         GestioneAcquistiService gas = new GestioneAcquistiService();
 
         switch (path){
@@ -26,16 +26,16 @@ public class GestioneAcquistoController extends HttpServlet {
                 break;
 
             case"/addCart":
-                id = request.getParameter("idISBN");
-                gas.aggiungiProdottoAlCarrello(id,request,response);
-                dispatcher= request.getRequestDispatcher("/index.jsp");
-                dispatcher.forward(request,response);
+                isbn = request.getParameter("isbn");
+                gas.aggiungiProdottoAlCarrello(isbn,request,response);
+                //dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
+                //dispatcher.forward(request,response);
                 break;
 
             case "/rimuoviCarrello":
-                id = request.getParameter("idISBN");
-                gas.rimuoviProdottoDalCarrello(id,request,response);
-                dispatcher= request.getRequestDispatcher("/index.jsp");
+                isbn = request.getParameter("isbn");
+                gas.rimuoviProdottoDalCarrello(isbn,request,response);
+                dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
                 dispatcher.forward(request,response);
 
         }

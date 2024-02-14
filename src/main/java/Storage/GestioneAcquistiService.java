@@ -21,9 +21,10 @@ public class GestioneAcquistiService {
     public boolean aggiungiProdottoAlCarrello(String ISBN_prodotto, HttpServletRequest request, HttpServletResponse response){
 
         try {
+            System.out.println("wfefekog");
             ProdottoDAO pd = new ProdottoDAO();
             Prodotto prodotto = pd.cercaPerISBN(ISBN_prodotto);
-
+            System.out.println(prodotto.getTitolo());
             if(prodotto!=null){
 
                 if(request.getSession(false).getAttribute("carrello")==null){
@@ -38,11 +39,14 @@ public class GestioneAcquistiService {
                     request.getSession(false).setAttribute("totale",Math.round(cart.prezzoTotale()*100.0)/100.0);
                     request.getSession(false).setAttribute("quantity",cart.getCartItems().size());
 
-                    response.sendRedirect("/WEB-INF/index.jsp");
+                    //response.sendRedirect("/WEB-INF/Interface/index.jsp");
+
+                    dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
+                    dispatcher.forward(request,response);
                 }
                 else{
                     request.getSession(false).setAttribute("prodotto2",prodotto);
-                    response.sendRedirect("/WEB-INF/index.jsp"+prodotto.getId());
+                    response.sendRedirect("/WEB-INF/Interface/index.jsp"+prodotto.getId());
                 }
 
 
@@ -56,6 +60,8 @@ public class GestioneAcquistiService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
             throw new RuntimeException(e);
         }
 

@@ -10,6 +10,9 @@
 <html>
 <head>
 
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 
@@ -18,7 +21,64 @@
 
 
 
-<p>CIAO</p>
+
+<!-- barra di navigazione  -->
+
+
+
+
+<aside class="containerBackground">
+
+    <section class="containerCenter" id="ajax">
+
+        <div class="generalCart">
+            <div class="CrtTitolo">
+
+                <p >Carrello</p>
+
+            </div>
+
+            <!--lista prodotti nel carrello -->
+
+            <c:forEach items="${carrello.carrello}" var="prodotto">
+
+            <div class="hedercart">
+
+                <!--inserire qua tag immagine-->
+                <div id="a2">
+                    <p>
+                        <b>Nome libro:</b> ${prodotto.prodotto.titolo} <br>
+                        <b>Categoria:</b> ${prodotto.prodotto.categoria} <br>
+                        <b>Data uscita:</b> ${prodotto.prodotto.dataPubblicazione}<br>
+                    </p>
+                </div>
+
+                <div id="a3">
+                    <p>prezzo: ${prodotto.prodotto.prezzo}&euro;</p>
+                </div>
+
+            </div>
+            </c:forEach>
+            <div class="footerCart">
+
+
+                <div id="a4">
+                    <p>
+                        SubTotale : ${totale} &euro; <br>
+                        Spedizione: Gratis  <br>
+                        Totale    : ${totale} &euro; <br>
+
+                    </p>
+
+                </div>
+
+                <!-- continua a navigare -->
+
+            </div>
+
+
+    </section>
+</aside>
 
 
 <!-- footer -->

@@ -188,7 +188,7 @@
                     <p id="p1">DIGITALE</p>
                     <p id="p2">${prodotto.prezzo}&euro;</p>
 
-                    <a href="/GameOver_war_exploded/CartServlet/addCartGuest?id=${prodotto.id}"><button class="button">aggiungi al carrello</button></a>
+                    <a href="/SignorLibro_war/GestioneAcquistoController/addCart?isbn=${prodotto.isbn}"><button class="button">aggiungi al carrello</button></a>
 
                     <p id="p3">
                         Codice articolo:

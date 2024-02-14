@@ -14,6 +14,9 @@ public class Carrello {
         return carrello;
     }
 
+    public ArrayList<ProdottoCarrello> getCarrello(){
+        return carrello;
+    }
     public void setCarrello(ArrayList<ProdottoCarrello> cartItems) {
         this.carrello = cartItems;
     }

@@ -55,7 +55,6 @@ public class GestioneProdottoController extends HttpServlet {
             case "/showProduct":
                 try {
                     product=sqlProductDao.cercaPerISBN(req.getParameter("isbn"));
-                    System.out.println(product.getTitolo()+"ciao");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
