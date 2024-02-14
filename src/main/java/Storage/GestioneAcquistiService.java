@@ -1,5 +1,6 @@
 package Storage;
 
+import Storage.DAO.CarrelloDAO;
 import Storage.DAO.OrdineDAO;
 import Storage.DAO.ProdottoDAO;
 import Storage.Entity.*;
@@ -29,10 +30,7 @@ public class GestioneAcquistiService {
 
                     request.getSession(false).setAttribute("carrello",new Carrello());
                 }
-
                 Carrello cart= (Carrello) request.getSession().getAttribute("carrello");
-
-
                 if(!cart.isPresent(prodotto)){
 
                     cart.aggiungiProdotto(prodotto, 1);

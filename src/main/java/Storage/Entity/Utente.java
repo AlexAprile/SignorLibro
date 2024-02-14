@@ -69,6 +69,7 @@ public class Utente {
     public void setNascita(Date nascita) {
         this.nascita = nascita;
     }
+    public void setAdmin(boolean admin){this.admin=admin;}
 
     public boolean isAdmin() {
         return admin;

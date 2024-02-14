@@ -112,6 +112,17 @@ public class ProdottoDAO {
         }
 
     }
-
+    public Integer updateProduct(Prodotto prodotto) throws SQLException {
+        Connection con=ConPool.getConnection();
+        PreparedStatement ps=con.prepareStatement("UPDATE prodotti SET  Titolo=?,Autore=?, Prezzo=?,descrizione=?,Coperina=?, quantita=? WHERE ID=?");
+        ps.setString(1,prodotto.getTitolo());
+        ps.setString(2, prodotto.getAutore());
+        ps.setDouble(3,prodotto.getPrezzo());
+        ps.setString(4, prodotto.getDescrizione());
+        ps.setString(5,prodotto.getCategoria());
+        ps.setInt(6,prodotto.getQuantita());
+        ps.setInt(7,prodotto.getId());
+        return ps.executeUpdate();
+    }
 
 }

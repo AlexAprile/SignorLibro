@@ -17,11 +17,11 @@ public class UtenteDAO {
      */
 
 
-    public static List<Utente> fetchUsers() throws SQLException, NoSuchAlgorithmException {
+    public static ArrayList<Utente> fetchUsers() throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPool.getConnection()){
             try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user;")){
                 ResultSet rs= ps.executeQuery();
-                List<Utente> accounts=new ArrayList<>();
+                ArrayList<Utente> accounts=new ArrayList<>();
 
                 while(rs.next()){
                     //in questo ciclo vengono presi tutti gli account presenti nel
@@ -76,7 +76,7 @@ public class UtenteDAO {
 
     public Utente fetchAccountWithPsw(String email,String psw) throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPool.getConnection()){
-            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user WHERE email=? AND Password=SHA1(?)")){
+            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user WHERE email=? AND Password=?")){
                 ps.setString(1,email);
                 ps.setString(2,psw);
                 ResultSet rs= ps.executeQuery();
@@ -118,4 +118,17 @@ public class UtenteDAO {
             }
         }
     }
+
+    public Integer updateUtente(Utente utente) throws SQLException {
+        try (Connection conn= ConPool.getConnection()){
+            try (PreparedStatement ps= conn.prepareStatement("UPDATE  account SET nome=?, cognome=?, password=? WHERE email=?")){
+                ps.setString(1, utente.getNome());
+                ps.setString(2,utente.getCognome());
+                ps.setString(3,utente.getPassword());
+
+                return ps.executeUpdate();
+            }
+        }
+    }
+
 }
