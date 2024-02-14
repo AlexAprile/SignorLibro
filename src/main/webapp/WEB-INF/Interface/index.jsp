@@ -19,8 +19,10 @@
 <div class="vetrina" id="ajax">
     <c:forEach items="${vetrina}" var="prodotto">
         <div class="divVetrina">
-            <p>${prodotto.titolo}x</p>
 
+            <a href="/SignorLibro_war/GestioneProdottoController/showProduct?isbn=${prodotto.isbn}">
+                <p>${prodotto.titolo}</p>
+            </a>
             <p class="divPrezzo">${prodotto.prezzo}&euro;</p>
         </div>
     </c:forEach>

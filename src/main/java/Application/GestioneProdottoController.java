@@ -40,10 +40,30 @@ public class GestioneProdottoController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path=(req.getPathInfo()!=null) ? req.getPathInfo():"/";
         RequestDispatcher dispatcher;
+
+
+        ProdottoDAO sqlProductDao=new ProdottoDAO();
+        Prodotto product=new Prodotto();
+        ArrayList<Prodotto> products=new ArrayList<>();
+
+
         switch (path){
             case "/home":
                 dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
                 dispatcher.forward(req,resp);
+                break;
+            case "/showProduct":
+                try {
+                    product=sqlProductDao.cercaPerISBN(req.getParameter("isbn"));
+                    System.out.println(product.getTitolo()+"ciao");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+                req.setAttribute("prodotto",product);
+                dispatcher=req.getRequestDispatcher("/WEB-INF/Interface/prodottoguest.jsp");
+                dispatcher.forward(req,resp);
+
                 break;
         }
     }

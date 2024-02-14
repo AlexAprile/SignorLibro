@@ -38,7 +38,7 @@ public class ProdottoDAO {
                     prodotto.setId(rs.getInt("ID"));
                     prodotto.setTitolo(rs.getString("titolo"));
                     prodotto.setAutore(rs.getString("autore"));
-                    prodotto.setIsbn(rs.getString("is"));
+                    prodotto.setIsbn(rs.getString("isbn"));
                     prodotto.setPrezzo(rs.getDouble("prezzo"));
                     prodotto.setDescrizione(rs.getString("descrizione"));
                     prodotto.setCategoria(rs.getString("categoria"));
