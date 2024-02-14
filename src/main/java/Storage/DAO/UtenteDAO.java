@@ -76,7 +76,7 @@ public class UtenteDAO {
 
     public Utente fetchAccountWithPsw(String email,String psw) throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPool.getConnection()){
-            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM account WHERE email=? AND psw=SHA1(?)")){
+            try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user WHERE email=? AND Password=SHA1(?)")){
                 ps.setString(1,email);
                 ps.setString(2,psw);
                 ResultSet rs= ps.executeQuery();
