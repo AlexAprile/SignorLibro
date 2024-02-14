@@ -7,13 +7,6 @@
   <script src="script/FormValidationCliente.js"></script>
 </head>
 
-<% String errorMessage = (String) request.getAttribute("errorMessageLogIn"); %>
-<% if (errorMessage != null && errorMessage.length() > 0) { %>
-<script>
-  var errorMessage = <%= new com.google.gson.Gson().toJson(errorMessage) %>;
-  alert(errorMessage);
-</script>
-<% } %>
 
 <body>
 <div class="titolo">
@@ -24,7 +17,7 @@
 <fieldset class="titolo">
   <legend>Bentornato!</legend>
 
-  <form action="log-in" method="post">
+  <form action="/SignorLibro_war/AutenticazioneController/login">
     <label for="email">e-Mail</label>
     <input type="email" id="email" name="email"
            placeholder="nomecognome@bankai.it"

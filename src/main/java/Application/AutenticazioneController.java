@@ -33,7 +33,7 @@ public class AutenticazioneController extends HttpServlet {
 
         switch (path){
             case"/signin":
-                address="/WEB-INF/Interface/signin.jsp";
+                address="/WEB-INF/Interface/Autenticazione/login.jsp";
                 req.getRequestDispatcher(address).forward(req,resp);
                 break;
             case "/login":
