@@ -190,6 +190,7 @@
 
                     <a href="/SignorLibro_war/GestioneAcquistoController/addCart?isbn=${prodotto.isbn}"><button class="button">aggiungi al carrello</button></a>
 
+
                     <p id="p3">
                         Codice articolo:
                         ${prodotto.id}

@@ -1,5 +1,9 @@
 package Storage.Entity;
 
+import Storage.DAO.CarrelloDAO;
+import Storage.DAO.ProdottoDAO;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Carrello {
@@ -21,21 +25,23 @@ public class Carrello {
         this.carrello = cartItems;
     }
 
-    public void aggiungiProdotto(Prodotto p, int q){
-        carrello.add(new ProdottoCarrello(p,q));
+    public void aggiungiProdotto(Prodotto p, int q) throws SQLException {
+        ProdottoCarrello pc = new ProdottoCarrello(p,q);
+        carrello.add(pc);
     }
 
-    public void rimuoviProdotto(Prodotto p){
+    public void rimuoviProdotto(Prodotto p) {
 
-        for (int i=0; i<carrello.size(); i++){
-
-            if(p.equals(carrello.get(i).getProdotto())){
-                if (carrello.get(i).getQuantita() == 1)
+        for (int i = 0; i < carrello.size(); i++) {
+            System.out.println(carrello.get(i).getProdotto().getTitolo());
+            if (p.getIsbn().equals(carrello.get(i).getProdotto().getIsbn())) {
+                if (carrello.get(i).getQuantita() == 1) {
                     carrello.remove(i);
-                else
+                } else {
                     carrello.get(i).setQuantita(carrello.get(i).getQuantita()-1);
-            }
+                }
 
+            }
         }
     }
 

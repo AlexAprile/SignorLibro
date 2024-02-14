@@ -2,6 +2,7 @@ package Storage.DAO;
 
 import Storage.ConPool;
 import Storage.Entity.Prodotto;
+import Storage.Entity.ProdottoCarrello;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -122,6 +123,14 @@ public class ProdottoDAO {
         ps.setString(5,prodotto.getCategoria());
         ps.setInt(6,prodotto.getQuantita());
         ps.setInt(7,prodotto.getId());
+        return ps.executeUpdate();
+    }
+
+    public Integer updateProductQ(ProdottoCarrello pc, Prodotto prodotto) throws SQLException {
+        Connection con=ConPool.getConnection();
+        PreparedStatement ps=con.prepareStatement("UPDATE prodotti SET quantita=? WHERE ID=?");
+        ps.setInt(1,pc.getQuantita()-1);
+        ps.setInt(2,prodotto.getId());
         return ps.executeUpdate();
     }
 

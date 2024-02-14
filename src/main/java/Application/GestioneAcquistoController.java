@@ -35,8 +35,8 @@ public class GestioneAcquistoController extends HttpServlet {
             case "/rimuoviCarrello":
                 isbn = request.getParameter("isbn");
                 gas.rimuoviProdottoDalCarrello(isbn,request,response);
-                dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
-                dispatcher.forward(request,response);
+                //dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
+                //dispatcher.forward(request,response);
 
         }
     }

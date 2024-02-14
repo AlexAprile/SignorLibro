@@ -50,10 +50,13 @@
                         <b>Nome libro:</b> ${prodotto.prodotto.titolo} <br>
                         <b>Categoria:</b> ${prodotto.prodotto.categoria} <br>
                         <b>Data uscita:</b> ${prodotto.prodotto.dataPubblicazione}<br>
+                        <b>Quantita:</b> ${prodotto.prodotto.quantita}<br>
+
                     </p>
                 </div>
 
                 <div id="a3">
+                    <a href="/SignorLibro_war/GestioneAcquistoController/rimuoviCarrello?isbn=${prodotto.prodotto.isbn}">rimuovi</a>
                     <p>prezzo: ${prodotto.prodotto.prezzo}&euro;</p>
                 </div>
 

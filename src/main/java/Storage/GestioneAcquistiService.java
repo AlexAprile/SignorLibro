@@ -18,13 +18,11 @@ import java.util.ArrayList;
 public class GestioneAcquistiService {
     RequestDispatcher dispatcher;
 
-    public boolean aggiungiProdottoAlCarrello(String ISBN_prodotto, HttpServletRequest request, HttpServletResponse response){
+    public boolean aggiungiProdottoAlCarrello(String ISBN_prodotto,HttpServletRequest request, HttpServletResponse response){
 
         try {
-            System.out.println("wfefekog");
             ProdottoDAO pd = new ProdottoDAO();
             Prodotto prodotto = pd.cercaPerISBN(ISBN_prodotto);
-            System.out.println(prodotto.getTitolo());
             if(prodotto!=null){
 
                 if(request.getSession(false).getAttribute("carrello")==null){
@@ -34,20 +32,19 @@ public class GestioneAcquistiService {
                 Carrello cart= (Carrello) request.getSession().getAttribute("carrello");
                 if(!cart.isPresent(prodotto)){
 
-                    cart.aggiungiProdotto(prodotto, 1);
+                    cart.aggiungiProdotto(prodotto,1);
                     request.getSession(false).setAttribute("carrello",cart);
                     request.getSession(false).setAttribute("totale",Math.round(cart.prezzoTotale()*100.0)/100.0);
-                    request.getSession(false).setAttribute("quantity",cart.getCartItems().size());
+                    request.getSession(false).setAttribute("quantity",prodotto.getQuantita());
 
                     //response.sendRedirect("/WEB-INF/Interface/index.jsp");
 
-                    dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
-                    dispatcher.forward(request,response);
                 }
                 else{
-                    request.getSession(false).setAttribute("prodotto2",prodotto);
-                    response.sendRedirect("/WEB-INF/Interface/index.jsp"+prodotto.getId());
+
                 }
+                dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
+                dispatcher.forward(request,response);
 
 
             }
@@ -70,7 +67,7 @@ public class GestioneAcquistiService {
 
     public void rimuoviProdottoDalCarrello(String isbn, HttpServletRequest request, HttpServletResponse response) {
 
-        String idProdotto2 = request.getParameter("id");
+        String idProdotto2 = request.getParameter("isbn");
         try {
             ProdottoDAO pd = new ProdottoDAO();
             Prodotto product = pd.cercaPerISBN(idProdotto2);
@@ -78,14 +75,17 @@ public class GestioneAcquistiService {
 
             Carrello cart1 = (Carrello) request.getSession().getAttribute("carrello");
             cart1.rimuoviProdotto(product);
+            System.out.println("messi");
             request.getSession(false).setAttribute("totale", Math.round(cart1.prezzoTotale() * 100.0) / 100.0);
             request.getSession(false).setAttribute("carrello", cart1);
             request.getSession(false).setAttribute("quantity", cart1.getCartItems().size());
-            response.sendRedirect("/GameOver_war_exploded/CartServlet/showCart");
-
+            dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
+            dispatcher.forward(request,response);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
             throw new RuntimeException(e);
         }
     }

@@ -29,7 +29,7 @@ public class GestioneProdottoController extends HttpServlet {
             prodotti=sqlProductDao.cercaTuttiProdotti();
             getServletContext().setAttribute("vetrina",prodotti);
             System.out.println("ciao");
-            System.out.println(prodotti.get(0).getTitolo());
+            System.out.println("tutto sotto controllo per ora");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
