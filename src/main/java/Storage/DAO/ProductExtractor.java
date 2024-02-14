@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ProductExtractor {
     public Prodotto extract(ResultSet resultSet) throws SQLException {
         Prodotto product=new Prodotto();
-        product.setId(resultSet.getInt("pro.id_prodotto"));
+        product.setId(resultSet.getInt("pro.id"));
         product.setPrezzo(resultSet.getDouble("pro.prezzo"));
         product.setDescrizione(resultSet.getString("pro.descrizione"));
         product.setIsbn(resultSet.getString("pro.isbn"));

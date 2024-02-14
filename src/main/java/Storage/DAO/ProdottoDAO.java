@@ -43,7 +43,7 @@ public class ProdottoDAO {
                     prodotto.setDescrizione(rs.getString("descrizione"));
                     prodotto.setCategoria(rs.getString("categoria"));
                     prodotto.setQuantita(rs.getInt("quantita"));
-                    prodotto.setDataPubblicazione(rs.getDate("dara_pubblicazione"));
+                    prodotto.setDataPubblicazione(rs.getDate("data_pubblicazione"));
                     prodotto.setCopertina(rs.getString("copertina"));
                 }
                 return prodotto;
@@ -53,7 +53,7 @@ public class ProdottoDAO {
 
     public ArrayList<Prodotto> cercaTuttiProdotti() throws SQLException {
         try(Connection connection= ConPool.getConnection()) {
-            String query = "SELECT *  FROM Prodotto;";
+            String query = "SELECT *  FROM Prodotto pro;";
             try (PreparedStatement ps = connection.prepareStatement(query)) {
                 ResultSet rs = ps.executeQuery();
                 Prodotto prodotto = null;

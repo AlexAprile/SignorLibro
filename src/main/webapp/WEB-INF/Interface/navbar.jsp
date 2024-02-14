@@ -9,7 +9,7 @@
 <body>
 <ul class="navbar">
     <li class="left">
-      <a class="active" href="../../index.jsp">Home</a>
+      <a class="active" href="/SignorLibro_war/GestioneProdottoController/home">Home</a>
     </li>
 
     <li class="left">
