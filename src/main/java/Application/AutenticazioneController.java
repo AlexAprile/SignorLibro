@@ -91,6 +91,10 @@ public class AutenticazioneController extends HttpServlet {
                 dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/homeAdmin.jsp");
                 dispatcher.forward(req,resp);
                 break;
+            case "/homeUtente":
+                dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/homeUtente.jsp");
+                dispatcher.forward(req,resp);
+                break;
         }
 
 
@@ -182,7 +186,7 @@ public class AutenticazioneController extends HttpServlet {
 
                 } else {
                     session.setAttribute("account", account);
-                    dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/homeUtente.jsp");
                     dispatcher.forward(request, response);
                 }
 

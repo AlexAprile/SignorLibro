@@ -55,13 +55,24 @@ public class GestioneProdottoController extends HttpServlet {
             case "/showProduct":
                 try {
                     product=sqlProductDao.cercaPerISBN(req.getParameter("isbn"));
-                    System.out.println(product.getTitolo()+"ciao");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
 
                 req.setAttribute("prodotto",product);
                 dispatcher=req.getRequestDispatcher("/WEB-INF/Interface/prodottoguest.jsp");
+                dispatcher.forward(req,resp);
+
+                break;
+            case "/showProductUtente":
+                try {
+                    product=sqlProductDao.cercaPerISBN(req.getParameter("isbn"));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+                req.setAttribute("prodotto",product);
+                dispatcher=req.getRequestDispatcher("/WEB-INF/Interface/prodottoutente.jsp");
                 dispatcher.forward(req,resp);
 
                 break;

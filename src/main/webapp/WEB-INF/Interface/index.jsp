@@ -30,7 +30,6 @@
 
 </div>
 
-
 <footer>
     <jsp:include page="/WEB-INF/Interface/footer.jsp" flush="true"/>
 </footer>
