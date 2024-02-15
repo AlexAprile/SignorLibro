@@ -21,13 +21,36 @@ public class AccountValidatorTest {
     }
 
     @Test
-    public void qualcosa() throws NoSuchAlgorithmException {
+    public void TC_1_1() throws NoSuchAlgorithmException {
         RequestValidator validator;
-        validator = AccountValidator.validateUpForm(request,"esempio@signorlibro.it",
-                "Ciaolibro1");
+        validator = AccountValidator.validateUpForm(request,"l.pauzanostudenti.unisa.it",
+                "Pauzano02");
+        List<String> lista = validator.getErrors();
+        for (String temp:lista)
+            System.out.println(temp);
+        Assert.assertEquals(false,validator.getErrors().isEmpty());
+    }
+
+    @Test
+    public void TC_1_2() throws NoSuchAlgorithmException {
+        RequestValidator validator;
+        validator = AccountValidator.validateUpForm(request,"l.pauzano@studenti.unisa.it",
+                "pauzano02");
+        List<String> lista = validator.getErrors();
+        for (String temp:lista)
+            System.out.println(temp);
+        Assert.assertEquals(false,validator.getErrors().isEmpty());
+    }
+
+    @Test
+    public void TC_1_3() throws NoSuchAlgorithmException {
+        RequestValidator validator;
+        validator = AccountValidator.validateUpForm(request,"l.pauzano@studenti.unisa.it",
+                "Pauzano02");
         List<String> lista = validator.getErrors();
         for (String temp:lista)
             System.out.println(temp);
         Assert.assertEquals(true,validator.getErrors().isEmpty());
     }
+
 }
