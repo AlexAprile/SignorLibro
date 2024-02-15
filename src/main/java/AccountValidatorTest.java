@@ -23,8 +23,7 @@ public class AccountValidatorTest {
     @Test
     public void qualcosa() throws NoSuchAlgorithmException {
         RequestValidator validator;
-        validator = AccountValidator.validateUpForm(request,"esempio@signorlibro.it",
-                "Ciaolibro1");
+        validator = AccountValidator.validateUpForm(request,"l.pauzano@studenti.unisa.it","Ciaolibro1");
         List<String> lista = validator.getErrors();
         for (String temp:lista)
             System.out.println(temp);
