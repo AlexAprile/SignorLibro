@@ -131,4 +131,27 @@ public class UtenteDAO {
         }
     }
 
+    public ArrayList<Utente> searchAllAccount() throws SQLException {
+
+
+        try(Connection connection=ConPool.getConnection()) {
+            String query="SELECT * FROM user AS us WHERE amministratore=0;";
+
+            try(PreparedStatement ps = connection.prepareStatement(query)) {
+                ResultSet rs = ps.executeQuery();
+
+                ArrayList<Utente> accounts = new ArrayList<>();
+                Utente account = null;
+                UtenteExtractor accountExtractor = new UtenteExtractor();
+
+                while (rs.next()) {
+                    account = accountExtractor.extract(rs);
+                    accounts.add(account);
+                }
+                return accounts;
+            }
+        }
+    }
+
+
 }

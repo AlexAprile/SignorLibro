@@ -1,4 +1,10 @@
-<%@ page import="Storage.Entity.Utente" %>
+<%@ page import="Storage.Entity.Utente" %><%--
+  Created by IntelliJ IDEA.
+  User: utente
+  Date: 15/02/2024
+  Time: 12:07
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,24 +14,24 @@
 </head>
 <body>
 <ul class="navbar">
-    <li class="left">
-      <a class="active" href="/SignorLibro_war/GestioneProdottoController/home">Home</a>
-    </li>
+  <li class="left">
+    <a class="active" href="/SignorLibro_war/AutenticazioneController/homeAdmin">Home</a>
+  </li>
 
-    <li class="left">
-      <div class="search">
-        <form action="./risultati.jsp" method="GET">
-          <input type="text" name="ricerca" placeholder="Inserisci nome">
-          <button type="submit">Cerca</button>
-        </form>
-      </div>
-    </li>
+  <li class="left">
+    <div class="search">
+      <form action="./risultati.jsp" method="GET">
+        <input type="text" name="ricerca" placeholder="Inserisci nome">
+        <button type="submit">Cerca</button>
+      </form>
+    </div>
+  </li>
 
-    <span id="icon">
-      <li class="right"><a href="/SignorLibro_war/GestioneAcquistoController/showCartGuest"><span class="fas fa-shopping-cart cart-icon"></span></a></li>
+  <span id="icon">
+      <li class="right"><a href="/SignorLibro_war/AutenticazioneController/logout">Disconnetti</a></li>
 
         <% Utente utente = (Utente) request.getSession().getAttribute("account");
-            if(utente != null) {
+          if(utente != null) {
         %>
             <li class="second"><a href="direct-servlet">Bentornato</a></li>
             <% }else{ %>
@@ -33,7 +39,7 @@
             <% } %>
     </span>
 
-  </ul>
+</ul>
 </div>
 <br/><br/>
 </body>

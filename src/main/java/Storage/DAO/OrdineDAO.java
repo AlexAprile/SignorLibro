@@ -5,6 +5,7 @@ import Storage.Entity.Ordine;
 import Storage.Entity.ProdottoCarrello;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class OrdineDAO {
 
@@ -48,5 +49,25 @@ public class OrdineDAO {
             }
         }
 
+    }
+
+    public ArrayList<Ordine> searchAllOrder() throws SQLException {
+        try(Connection connection=ConPool.getConnection()) {
+            String query="SELECT * FROM ordine AS ord;";
+
+            try(PreparedStatement ps = connection.prepareStatement(query)) {
+                ResultSet rs = ps.executeQuery();
+
+                ArrayList<Ordine> orders = new ArrayList<>();
+                Ordine order = null;
+                OrderExtractor orderExtractor = new OrderExtractor();
+
+                while (rs.next()) {
+                    order = orderExtractor.extract(rs);
+                    orders.add(order);
+                }
+                return orders;
+            }
+        }
     }
 }

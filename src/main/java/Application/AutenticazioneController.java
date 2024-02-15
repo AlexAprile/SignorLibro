@@ -2,7 +2,12 @@ package Application;
 
 import Storage.AutenticazioneService;
 import Storage.DAO.CarrelloDAO;
+import Storage.DAO.OrdineDAO;
+import Storage.DAO.ProdottoDAO;
+import Storage.DAO.UtenteDAO;
 import Storage.Entity.Carrello;
+import Storage.Entity.Ordine;
+import Storage.Entity.Prodotto;
 import Storage.Entity.Utente;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -15,11 +20,17 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 @WebServlet(name = "AutenticazioneController", value = "/AutenticazioneController/*")
 public class AutenticazioneController extends HttpServlet {
     String address;
+    RequestDispatcher dispatcher;
+    ProdottoDAO sqlProductDao = new ProdottoDAO();
+    UtenteDAO udao = new UtenteDAO();
 
+    OrdineDAO sqlOrderDao = new OrdineDAO();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
@@ -73,11 +84,110 @@ public class AutenticazioneController extends HttpServlet {
                 dispatcher.forward(req,resp);
                 break;
             case "/logout":
-                service.logout(req.getSession(false));
-                resp.sendRedirect("/WEB-INF/index.jsp");
+                req.getSession(false).invalidate();
+                resp.sendRedirect("http://localhost:8080/SignorLibro_war/GestioneProdottoController/home");
+                break;
+            case "/homeAdmin":
+                dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/homeAdmin.jsp");
+                dispatcher.forward(req,resp);
                 break;
         }
 
 
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+
+        switch (path) {
+            case "/login":
+                String password = request.getParameter("password");
+                String email = request.getParameter("email");
+
+
+                /** se rientriamo nel sito con un altro account dobbiamo prima distruggere la sessione precendete **/
+
+                Utente accountprova;
+
+                accountprova = (Utente) request.getSession().getAttribute("account");
+                if (accountprova != null) {
+                    String pass = accountprova.getPassword();
+                    String em = accountprova.getMail();
+                    if (!(pass.equals(password) && em.equals(email))) {
+                        request.getSession(false).invalidate();
+                    }
+                }
+
+
+                HttpSession session = request.getSession(true);
+                Utente account = null;
+                try {
+
+                    account = udao.fetchAccountWithPsw(email, password);
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (account == null) {
+                    boolean login = false;
+                    request.setAttribute("login", login);
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
+                    dispatcher.forward(request, response);
+
+                }
+
+
+                if (account.isAdmin()) {
+                    try {
+                        /* numero prodotti*/
+                        ArrayList<Prodotto> products = sqlProductDao.cercaTuttiProdotti();
+                        request.getSession(false).setAttribute("n_products", products.size());
+
+                        /*numero utenti*/
+                        ArrayList<Utente> accounts = udao.searchAllAccount();
+                        request.getSession(false).setAttribute("n_client", accounts.size());
+
+                        /*Totale incasso*/
+                        ArrayList<Ordine> orders = sqlOrderDao.searchAllOrder();
+                        ArrayList<Ordine> newOrdini = new ArrayList<>();
+                        LocalDate now = LocalDate.now();
+
+                        for (int i = 0; i < orders.size(); i++) {
+                            //if (orders.get(i).getDataOrdine().getMonth().equals(now.getMonth()))
+                                newOrdini.add(orders.get(i));
+
+                        }
+
+                        double totale = 0;
+                        for (int j = 0; j < newOrdini.size(); j++) {
+                            totale += newOrdini.get(j).getTotale();
+                        }
+                        request.getSession(false).setAttribute("totale_incasso", Math.round(totale * 100.0) / 100.0);
+
+                        /*Numero ordini mensili*/
+                        request.getSession(false).setAttribute("n_ordini", newOrdini.size());
+
+                        session.setAttribute("account", account);
+                        dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/homeAdmin.jsp");
+                        dispatcher.forward(request, response);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+
+                } else {
+                    session.setAttribute("account", account);
+                    dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
+                    dispatcher.forward(request, response);
+                }
+
+
+                break;
+        }
     }
 }

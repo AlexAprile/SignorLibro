@@ -6,10 +6,11 @@
 <head>
     <title>Signor Libro</title>
     <link rel="icon" type="image/x-icon" href="./icons/vettoreVerde.png">
-    <jsp:include page="navbar.jsp"></jsp:include>
+
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>
+<jsp:include page="navbar.jsp"></jsp:include>
 <h1 class="title">Signor Libro</h1>
 <div>
     <img src="./icons/logoVerde.png" alt="SignorLibro Logo" title="SignorLibro Logo">

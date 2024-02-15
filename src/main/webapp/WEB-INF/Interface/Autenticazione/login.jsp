@@ -17,7 +17,7 @@
 <fieldset class="titolo">
   <legend>Bentornato!</legend>
 
-  <form action="/SignorLibro_war/AutenticazioneController/login">
+  <form action="/SignorLibro_war/AutenticazioneController/login" method="post">
     <label for="email">e-Mail</label>
     <input type="email" id="email" name="email"
            placeholder="nomecognome@bankai.it"
