@@ -18,16 +18,15 @@
   <legend>Bentornato!</legend>
 
   <form action="/SignorLibro_war/AutenticazioneController/login" method="post">
-    <label for="email">e-Mail</label>
-    <input type="email" id="email" name="email"
-           placeholder="nomecognome@bankai.it"
-    onkeyup="emailValidation(this.form.email)"><br><br>
+    <label class="label" for="email">email</label>
+    <input   type="email" name="email" id="email"  placeholder="email" required>
+    <br>
 
-    <label for="password">password</label>
-    <input type="password" id="password" name="password"
-    onkeyup="passwordValidation(this.form.password)"><br><br>
-
-    <input type="submit" value="Accedi">
+    <label class="label" for="password">password </label>
+    <input type="password" name="password" id="password"  placeholder="password" required>
+    <br>
+    <p></p>
+    <button class="button"  type="submit" >login</button>
   </form>
 </fieldset>
 

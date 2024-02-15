@@ -64,6 +64,54 @@ public class GestioneAcquistiService {
 
         return false;
     }
+    public boolean aggiungiProdottoAlCarrelloUtente(String ISBN_prodotto,HttpServletRequest request, HttpServletResponse response){
+
+        try {
+            ProdottoDAO pd = new ProdottoDAO();
+            Prodotto prodotto = pd.cercaPerISBN(ISBN_prodotto);
+            if(prodotto!=null){
+
+                if(request.getSession(false).getAttribute("carrello")==null){
+
+                    request.getSession(false).setAttribute("carrello",new Carrello());
+                }
+                Carrello cart= (Carrello) request.getSession().getAttribute("carrello");
+                if(!cart.isPresent(prodotto)){
+
+                    cart.aggiungiProdotto(prodotto,1);
+                    request.getSession(false).setAttribute("carrello",cart);
+                    request.getSession(false).setAttribute("totale",Math.round(cart.prezzoTotale()*100.0)/100.0);
+                    request.getSession(false).setAttribute("quantity",prodotto.getQuantita());
+
+                    //response.sendRedirect("/WEB-INF/Interface/index.jsp");
+
+                }
+                else{
+
+                }
+                dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/homeUtente.jsp");
+                dispatcher.forward(request,response);
+
+
+            }
+
+            else{
+                /*pagina di errore*/
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false;
+    }
+
+
 
     public void rimuoviProdottoDalCarrello(String isbn, HttpServletRequest request, HttpServletResponse response) {
 
@@ -81,15 +129,30 @@ public class GestioneAcquistiService {
             request.getSession(false).setAttribute("quantity", cart1.getCartItems().size());
             dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
             dispatcher.forward(request,response);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ServletException e) {
+        } catch (SQLException | ServletException | IOException e) {
             throw new RuntimeException(e);
         }
     }
+    public void rimuoviProdottoDalCarrelloUtente(String isbn, HttpServletRequest request, HttpServletResponse response) {
 
+        String idProdotto2 = request.getParameter("isbn");
+        try {
+            ProdottoDAO pd = new ProdottoDAO();
+            Prodotto product = pd.cercaPerISBN(idProdotto2);
+
+
+            Carrello cart1 = (Carrello) request.getSession().getAttribute("carrello");
+            cart1.rimuoviProdotto(product);
+            System.out.println("messi");
+            request.getSession(false).setAttribute("totale", Math.round(cart1.prezzoTotale() * 100.0) / 100.0);
+            request.getSession(false).setAttribute("carrello", cart1);
+            request.getSession(false).setAttribute("quantity", cart1.getCartItems().size());
+            dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/homeUtente.jsp");
+            dispatcher.forward(request,response);
+        } catch (SQLException | IOException | ServletException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void creaOrdine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Carrello cart= (Carrello) request.getSession(false).getAttribute("carrello");

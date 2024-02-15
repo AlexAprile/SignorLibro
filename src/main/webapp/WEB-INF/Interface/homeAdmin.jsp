@@ -82,10 +82,6 @@
 
   <section class="containerCenter" id="ajax">
 
-    <div class="divsCenter">
-      <h3>Totale incasso mensile</h3>
-      <p>${totale_incasso}&euro;</p>
-    </div>
 
     <div class="divsCenter">
       <h3>Numero prodotti</h3>
