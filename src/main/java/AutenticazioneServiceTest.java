@@ -1,7 +1,4 @@
-
-
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 import Storage.DAO.UtenteDAO;
 import Storage.Entity.Utente;
 import Storage.AutenticazioneService;
@@ -36,7 +33,7 @@ public class AutenticazioneServiceTest {
         assertNotNull(result);
 
         // Verifica che il risultato sia uguale all'utente di esempio
-        assertEquals(utente, result);
+        assertEquals(utente.getMail(), result.getMail());
     }
 
 

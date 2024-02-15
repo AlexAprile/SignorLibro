@@ -68,7 +68,7 @@ public class AutenticazioneController extends HttpServlet {
                             address="home";
                         }
                     } else {
-                        System.out.println("----------");
+
                         // Redirect alla pagina con un messaggio di errore
                         address ="signin?error=1";  // con redirect, la pagina non può essere in WEB-INF, il browser non potrebbe raggiungerla
                     }
