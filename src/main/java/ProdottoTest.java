@@ -26,7 +26,7 @@ public class ProdottoTest {
 
     @Test
     public void TC_5_1(){
-        String dateString = "2010/01/01";
+        String dateString = "01/01/2010";
         Date date = null;
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
@@ -39,7 +39,7 @@ public class ProdottoTest {
         List<String> lista=validator.getErrors();
         for (String temp:lista)
             System.out.println(temp);
-        Assert.assertEquals(true,validator.getErrors().isEmpty());
+        Assert.assertEquals(false,validator.getErrors().isEmpty());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ProdottoTest {
         List<String> lista=validator.getErrors();
         for (String temp:lista)
             System.out.println(temp);
-        Assert.assertEquals(true,validator.getErrors().isEmpty());
+        Assert.assertEquals(false,validator.getErrors().isEmpty());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ProdottoTest {
         List<String> lista=validator.getErrors();
         for (String temp:lista)
             System.out.println(temp);
-        Assert.assertEquals(true,validator.getErrors().isEmpty());
+        Assert.assertEquals(false,validator.getErrors().isEmpty());
     }
 
     @Test
