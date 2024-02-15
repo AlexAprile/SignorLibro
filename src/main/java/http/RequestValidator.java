@@ -2,6 +2,7 @@ package http;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -51,6 +52,36 @@ public class RequestValidator {
     public boolean assertEmail(String value,String msg){
         Pattern pattern=Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
         return assertMatch(value,pattern,msg);
+    }
+
+    public static boolean assertDate(String value, String msg) {
+        // Il pattern seguente corrisponde a una data nel formato "YYYY-MM-DD"
+        Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+
+        // Verifica che la data corrisponda al pattern
+        if (!pattern.matcher(value).matches()) {
+            return false;
+        }
+
+        // Estrai l'anno, il mese e il giorno dalla stringa della data
+        String[] parts = value.split("-");
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int day = Integer.parseInt(parts[2]);
+
+        try {
+            // Crea un oggetto LocalDate per la data specificata
+            LocalDate date = LocalDate.of(year, month, day);
+
+            // Ottieni la data corrente
+            LocalDate today = LocalDate.now();
+
+            // Verifica se la data è precedente o uguale al giorno corrente
+            return !date.isAfter(today);
+        } catch (Exception e) {
+            // Eccezione nella conversione della data
+            return false;
+        }
     }
 
 }
