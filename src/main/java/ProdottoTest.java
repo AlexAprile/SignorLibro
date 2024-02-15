@@ -29,7 +29,7 @@ public class ProdottoTest {
         String dateString = "2010/01/01";
         Date date = null;
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
             date = formatter.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class ProdottoTest {
 
     @Test
     public void TC_5_4(){
-        String dateString = "2030/01/01";
+        String dateString = "01/01/2030";
         Date date = null;
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -62,7 +62,7 @@ public class ProdottoTest {
 
     @Test
     public void TC_5_5(){
-        String dateString = "2010/01/01";
+        String dateString = "01/01/2010";
         Date date = null;
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -80,7 +80,7 @@ public class ProdottoTest {
 
     @Test
     public void TC_5_6(){
-        String dateString = "2010/01/01";
+        String dateString = "01/01/2010";
         Date date = null;
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

@@ -54,34 +54,35 @@ public class RequestValidator {
         return assertMatch(value,pattern,msg);
     }
 
-    public static boolean assertDate(String value, String msg) {
+    public boolean assertDate(String value, String msg) {
         // Il pattern seguente corrisponde a una data nel formato "YYYY-MM-DD"
-        Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+        Pattern pattern = Pattern.compile("^\\d{4}/\\d{2}/\\d{2}$");
 
         // Verifica che la data corrisponda al pattern
-        if (!pattern.matcher(value).matches()) {
+        if (!assertMatch(value, pattern, msg)) {
             return false;
         }
 
         // Estrai l'anno, il mese e il giorno dalla stringa della data
-        String[] parts = value.split("-");
+        String[] parts = value.split("/");
         int year = Integer.parseInt(parts[0]);
         int month = Integer.parseInt(parts[1]);
         int day = Integer.parseInt(parts[2]);
 
-        try {
-            // Crea un oggetto LocalDate per la data specificata
-            LocalDate date = LocalDate.of(year, month, day);
+        // Crea un oggetto LocalDate per la data specificata
+        LocalDate date = LocalDate.of(year, month, day);
 
-            // Ottieni la data corrente
-            LocalDate today = LocalDate.now();
+        // Ottieni la data corrente
+        LocalDate today = LocalDate.now();
 
-            // Verifica se la data è precedente o uguale al giorno corrente
-            return !date.isAfter(today);
-        } catch (Exception e) {
-            // Eccezione nella conversione della data
+        // Verifica se la data è inferiore o uguale al giorno corrente
+        if (date.isAfter(today)) {
+            // La data è successiva al giorno corrente
             return false;
         }
+
+        // La data è valida
+        return true;
     }
 
 }
