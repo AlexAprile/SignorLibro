@@ -28,7 +28,7 @@ public class RegistrazioneService {
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String dataNascita = request.getParameter("nascita");
-        Date nascita = new Date(dataNascita);
+        //Date nascita = new Date(dataNascita);
 
         Utente utente;
 
@@ -63,7 +63,7 @@ public class RegistrazioneService {
         }*/
         request.setAttribute("back","/WEB-INF/Interface/Registrazione/registrazione.jsp");
         try {
-            Controller.validate(AccountValidator.validateUpForm(request));
+            Controller.validate(AccountValidator.validateUpForm(request,email,password));
         } catch (InvalidRequestException e) {
             try {
                 e.handle(request,response);
@@ -82,7 +82,7 @@ public class RegistrazioneService {
         utente.setCognome(cognome);
         utente.setMail(email);
         utente.setPassword(password);
-        utente.setNascita(nascita);
+        //utente.setNascita(nascita);
 
         UtenteDAO cdao = new UtenteDAO();
         cdao.createUser(utente);
