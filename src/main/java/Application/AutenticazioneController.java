@@ -26,6 +26,8 @@ import java.util.ArrayList;
 @WebServlet(name = "AutenticazioneController", value = "/AutenticazioneController/*")
 public class AutenticazioneController extends HttpServlet {
     String address;
+    private  HttpSession session;
+
     RequestDispatcher dispatcher;
     ProdottoDAO sqlProductDao = new ProdottoDAO();
     UtenteDAO udao = new UtenteDAO();
@@ -126,7 +128,7 @@ public class AutenticazioneController extends HttpServlet {
                 }
 
 
-                HttpSession session = request.getSession(true);
+                 session = request.getSession(true);
                 Utente account = null;
                 try {
 
@@ -139,15 +141,11 @@ public class AutenticazioneController extends HttpServlet {
                 }
 
                 if (account == null) {
-                    boolean login = false;
-                    request.setAttribute("login", login);
+                    System.out.println("account non esistente");
                     dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
                     dispatcher.forward(request, response);
 
-                }
-
-
-                if (account.isAdmin()) {
+                } else if (account.isAdmin()) {
                     try {
                         /* numero prodotti*/
                         ArrayList<Prodotto> products = sqlProductDao.cercaTuttiProdotti();
@@ -168,7 +166,7 @@ public class AutenticazioneController extends HttpServlet {
 
                         }
 
-                        double totale = 0;
+                        float totale = 0;
                         for (int j = 0; j < newOrdini.size(); j++) {
                             totale += newOrdini.get(j).getTotale();
                         }
@@ -177,6 +175,8 @@ public class AutenticazioneController extends HttpServlet {
                         /*Numero ordini mensili*/
                         request.getSession(false).setAttribute("n_ordini", newOrdini.size());
 
+                        System.out.println("account admin");
+
                         session.setAttribute("account", account);
                         dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/homeAdmin.jsp");
                         dispatcher.forward(request, response);
@@ -184,7 +184,7 @@ public class AutenticazioneController extends HttpServlet {
                         throwables.printStackTrace();
                     }
 
-                } else {
+                } else if (!account.isAdmin()){
                     session.setAttribute("account", account);
                     dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/homeUtente.jsp");
                     dispatcher.forward(request, response);

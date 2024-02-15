@@ -40,6 +40,11 @@
     </span>
 
 </ul>
+<ul>
+    <li>
+        <a href="/SignorLibro_war/GestioneProdottoController/aggiungiProdotto">Aggiungi Prodotto</a>
+    </li>
+</ul>
 </div>
 <br/><br/>
 </body>
