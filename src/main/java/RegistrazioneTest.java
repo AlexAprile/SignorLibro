@@ -20,7 +20,7 @@ public class RegistrazioneTest {
     }
 
     @Test
-    public void TestRegistrazione2_1(){
+    public void TC_2_1(){
         Date nascita = new Date("23/03/1999");
         try {
             RequestValidator validator=AccountValidatorUpdate.validateUpForm(request,
@@ -36,7 +36,7 @@ public class RegistrazioneTest {
     }
 
     @Test
-    public void TestRegistrazione2_5(){
+    public void TC_2_5(){
         Date nascita = new Date("23/03/1999");
         try {
             RequestValidator validator=AccountValidatorUpdate.validateUpForm(request,
@@ -52,7 +52,7 @@ public class RegistrazioneTest {
     }
 
     @Test
-    public void TestRegistrazione2_6(){
+    public void TC_2_6(){
         Date nascita = new Date("23/03/1999");
         try {
             RequestValidator validator=AccountValidatorUpdate.validateUpForm(request,
@@ -68,7 +68,7 @@ public class RegistrazioneTest {
     }
 
     @Test
-    public void TestRegistrazione2_7(){
+    public void TC_2_7(){
         Date nascita = new Date("23/03/2020");
         try {
             RequestValidator validator = AccountValidatorUpdate.validateUpForm(request,
@@ -84,7 +84,7 @@ public class RegistrazioneTest {
     }
 
     @Test
-    public void TestRegistrazione2_8(){
+    public void TC_2_8(){
         Date nascita = new Date("23/03/1999");
         try {
             RequestValidator validator = AccountValidatorUpdate.validateUpForm(request,
