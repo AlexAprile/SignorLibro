@@ -12,6 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class RegistrazioneService {
     /**
@@ -28,39 +31,19 @@ public class RegistrazioneService {
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String dataNascita = request.getParameter("nascita");
-        //Date nascita = new Date(dataNascita);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date nascita = new Date();
+        try {
+            nascita = dateFormat.parse(dataNascita);
+        } catch (ParseException e) {
+            // Gestione dell'eccezione in caso di formato di data non valido
+            e.printStackTrace();
+        }
+
 
         Utente utente;
 
-        /*
-        String errore = "";
-
-        if(nome.length()<1 || nome.length()>50)
-            errore += "Nome digitato troppo breve o troppo lungo";
-
-        if(cognome.length()<1 || cognome.length()>50)
-            errore += "Cognome digitato troppo breve o troppo lungo";
-
-        if(email.length()<8 || cognome.length()>100)
-            errore += "Email digitata troppo breve o troppo lunga";
-
-        if(password.length()<4 || password.length()>50)
-            errore += "Password digitata troppo breve o troppo lunga";
-
-        if(email.length()<4 || email.length()>100)
-            errore += "Email digitata troppo breve o troppo lunga";*/
-
-        //data di nascita import java.util.Date;
-
-
-
-        /*if(!errore.equals(""))
-        {
-            // I dati non sono validi, mostra la pagina di registrazione con il messaggio di errore
-            address = "./WEB-INF/Interface/Registrazione/registrazione.jsp";
-            request.setAttribute("errore", errore);
-            return address;
-        }*/
         request.setAttribute("back","/WEB-INF/Interface/Registrazione/registrazione.jsp");
         try {
             Controller.validate(AccountValidator.validateUpForm(request,email,password));
@@ -82,7 +65,7 @@ public class RegistrazioneService {
         utente.setCognome(cognome);
         utente.setMail(email);
         utente.setPassword(password);
-        //utente.setNascita(nascita);
+        utente.setNascita(nascita);
 
         UtenteDAO cdao = new UtenteDAO();
         cdao.createUser(utente);

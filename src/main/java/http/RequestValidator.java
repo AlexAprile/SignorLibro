@@ -2,9 +2,17 @@ package http;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.Calendar;
+
 
 public class RequestValidator {
     private final List<String> errors;
@@ -51,6 +59,66 @@ public class RequestValidator {
     public boolean assertEmail(String value,String msg){
         Pattern pattern=Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
         return assertMatch(value,pattern,msg);
+    }
+
+    public boolean assertDate(Date value, String msg) {
+        // Convertire la data di nascita in una stringa
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dataNascitaString = dateFormat.format(value);
+
+        // Definire la regex per verificare l'età di almeno 18 anni
+        //String regex = "^(?:0[1-9]|1\\d|2[0-8])/(?:0[1-9]|1[0-2])/((?:19|20)\\d{2})$";
+        String regex = "^\\d{2}/\\d{2}/\\d{4}$";
+        Pattern pattern = Pattern.compile(regex);
+
+        // Controllare se la stringa corrisponde alla regex e se l'età è di almeno 18 anni
+        if (assertMatch(dataNascitaString, pattern, msg)) {
+            LocalDate datalocalCorrente = LocalDate.now();
+            Date dataCorrente= Date.from(datalocalCorrente.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            if (value.before(dataCorrente) || value.equals(dataCorrente)) {
+                return true; //va bene
+            } else {
+                errors.add("Data superiore alla data corrente");
+                return false;
+            }
+        } else {
+            // La stringa non corrisponde alla regex
+            return false;
+        }
+
+    }
+
+
+    public boolean assertDateMaggiorenne(Date value, String msg){
+        // Convertire la data di nascita in una stringa
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dataNascitaString = dateFormat.format(value);
+
+        // Definire la regex per verificare l'età di almeno 18 anni
+        //String regex = "^(?:0[1-9]|1\\d|2[0-8])/(?:0[1-9]|1[0-2])/((?:19|20)\\d{2})$";
+        String regex = "^\\d{2}/\\d{2}/\\d{4}$";
+        Pattern pattern = Pattern.compile(regex);
+
+        // Controllare se la stringa corrisponde alla regex e se l'età è di almeno 18 anni
+        if (assertMatch(dataNascitaString, pattern, msg)) {
+
+            LocalDate dataCorrente = LocalDate.now();
+            LocalDate data18AnniFa = dataCorrente.minusYears(18);
+
+            Date data18anni= Date.from(data18AnniFa.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            if (value.before(data18anni) || value.equals(data18anni)) {
+                return true; //va bene
+            } else {
+                errors.add("Utente non maggiorenne");
+                return false; //non maggiorenne
+            }
+        } else {
+            // La stringa non corrisponde alla regex
+            return false;
+        }
+
     }
 
 }
