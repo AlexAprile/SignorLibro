@@ -13,7 +13,34 @@
 <head>
     <title>Signor Libro</title>
     <link rel="icon" type="image/x-icon" href="./icons/vettoreVerde.png">
+    <style>.vetrina {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
 
+    /* Stile del singolo elemento della vetrina */
+    .divVetrina {
+        width: 200px;
+        padding: 10px;
+        border: 1px solid #cccccc;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .divVetrina a {
+        text-decoration: none;
+        color: #137231;
+    }
+
+    .divVetrina p {
+        margin: 0;
+    }
+
+    /* Stile del prezzo */
+    .divPrezzo {
+        font-weight: bold;
+    }</style>
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>

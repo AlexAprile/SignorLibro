@@ -6,6 +6,7 @@ import Storage.Entity.ProdottoCarrello;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProdottoDAO {
 
@@ -39,12 +40,12 @@ public class ProdottoDAO {
                     prodotto.setId(rs.getInt("ID"));
                     prodotto.setTitolo(rs.getString("titolo"));
                     prodotto.setAutore(rs.getString("autore"));
-                    prodotto.setIsbn(rs.getString("isbn"));
+                    prodotto.setIsbn(rs.getString("is"));
                     prodotto.setPrezzo(rs.getDouble("prezzo"));
                     prodotto.setDescrizione(rs.getString("descrizione"));
                     prodotto.setCategoria(rs.getString("categoria"));
                     prodotto.setQuantita(rs.getInt("quantita"));
-                    prodotto.setDataPubblicazione(rs.getDate("data_pubblicazione"));
+                    prodotto.setDataPubblicazione(rs.getDate("dara_pubblicazione"));
                     prodotto.setCopertina(rs.getString("copertina"));
                 }
                 return prodotto;
@@ -54,7 +55,7 @@ public class ProdottoDAO {
 
     public ArrayList<Prodotto> cercaTuttiProdotti() throws SQLException {
         try(Connection connection= ConPool.getConnection()) {
-            String query = "SELECT *  FROM Prodotto pro;";
+            String query = "SELECT *  FROM Prodotto AS pro;";
             try (PreparedStatement ps = connection.prepareStatement(query)) {
                 ResultSet rs = ps.executeQuery();
                 Prodotto prodotto = null;
@@ -68,6 +69,36 @@ public class ProdottoDAO {
             }
         }
     }
+/*
+    public ArrayList<Prodotto> cercaTuttiProdotti() {
+        try (Connection con = ConPool.getConnection()) {
+
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Prodotto");
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Prodotto> prodotti = new ArrayList<>();
+
+            while (rs.next()) {
+
+                Prodotto p = new Prodotto();
+                p.setId(rs.getInt("ID"));
+                p.setTitolo(rs.getString("titolo"));
+                p.setDescrizione(rs.getString("descrizione"));
+                p.setPrezzo(rs.getDouble("prezzo"));
+                p.setCopertina(rs.getString("copertina"));
+                p.setQuantita(rs.getInt("quantita"));
+                p.setIsbn(rs.getString("isbn"));
+                p.setDataPubblicazione(rs.getDate("data_pubblicazione"));
+                p.setCategoria(rs.getString("categoria"));
+                prodotti.add(p);
+            }
+
+            return prodotti;
+
+        } catch (SQLException s) {
+
+            throw new RuntimeException(s);
+        }
+    }*/
 
     public boolean creaProdotto(Prodotto product) throws SQLException {
 
@@ -132,6 +163,37 @@ public class ProdottoDAO {
         ps.setInt(1,pc.getQuantita()-1);
         ps.setInt(2,prodotto.getId());
         return ps.executeUpdate();
+    }
+
+    public ArrayList<Prodotto> search(String value) {
+        try (Connection con = ConPool.getConnection()) {
+
+            PreparedStatement ps = con.prepareStatement("select * from prodotto WHERE titolo LIKE ?");
+            ps.setString(1,value+"%");
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Prodotto> prodotti = new ArrayList<>();
+
+            while (rs.next()) {
+
+                Prodotto p = new Prodotto();
+                p.setId(rs.getInt("ID"));
+                p.setTitolo(rs.getString("titolo"));
+                p.setDescrizione(rs.getString("descrizione"));
+                p.setPrezzo(rs.getDouble("prezzo"));
+                p.setCopertina(rs.getString("copertina"));
+                p.setQuantita(rs.getInt("quantita"));
+                p.setIsbn(rs.getString("isbn"));
+                p.setDataPubblicazione(rs.getDate("data_pubblicazione"));
+                p.setCategoria(rs.getString("categoria"));
+                prodotti.add(p);
+            }
+
+            return prodotti;
+
+        } catch (SQLException s) {
+
+            throw new RuntimeException(s);
+        }
     }
 
 }

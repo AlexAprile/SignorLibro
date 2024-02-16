@@ -2,6 +2,7 @@ package Application;
 
 import Storage.DAO.ProdottoDAO;
 import Storage.Entity.Prodotto;
+import Storage.GestioneProdottoService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,25 +27,23 @@ import java.util.Random;
 @WebServlet(name = "GestioneProdottoController", value = "/GestioneProdottoController/*")
 
 public class GestioneProdottoController extends HttpServlet {
-    @Override
+   @Override
     public void init() throws ServletException {
         super.init();
 
         /** carico i prodotti nella vetrina nella memoria globlale **/
 
-        try {
-            ArrayList<Prodotto> prodotti;
-            ProdottoDAO sqlProductDao= new ProdottoDAO();
-            prodotti=sqlProductDao.cercaTuttiProdotti();
-            getServletContext().setAttribute("vetrina",prodotti);
-            System.out.println("ciao");
-            System.out.println("tutto sotto controllo per ora");
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-    }
+       ArrayList<Prodotto> prodotti;
+       ProdottoDAO sqlProductDao= new ProdottoDAO();
+       try {
+           prodotti=sqlProductDao.cercaTuttiProdotti();
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }
+       getServletContext().setAttribute("vetrina",prodotti);
+       System.out.println("ciao");
+       System.out.println("tutto sotto controllo per ora");
+   }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path=(req.getPathInfo()!=null) ? req.getPathInfo():"/";
@@ -85,11 +84,16 @@ public class GestioneProdottoController extends HttpServlet {
                 dispatcher.forward(req,resp);
 
                 break;
+            case "/risultati":
+                ProdottoDAO dao=new ProdottoDAO();
+                ArrayList<Prodotto> prodotti= (ArrayList<Prodotto>) dao.search(req.getParameter("ricerca"));
+                req.setAttribute("vetrina",prodotti);
+                dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/prodotti.jsp");
+                dispatcher.forward(req,resp);
+                break;
             case "/aggiungiProdotto":
-
                 dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/aggiungiProdotto.jsp");
                 dispatcher.forward(req,resp);
-
                 break;
         }
     }

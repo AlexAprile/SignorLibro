@@ -10,7 +10,97 @@
 <html>
 <head>
 
+    <style>/* Stile del body */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+    }
 
+    /* Stile del contenitore principale */
+    .containerBackground {
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    /* Stile del contenitore centrale */
+    .containerCenter {
+        margin: 0 auto;
+        max-width: 800px;
+    }
+
+    /* Stile del titolo del carrello */
+    .CrtTitolo {
+        background-color: #137231;
+        color: #ffffff;
+        padding: 10px;
+    }
+
+    .CrtTitolo p {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    /* Stile delle righe del carrello */
+    .hedercart {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #cccccc;
+    }
+
+    #a2 {
+        flex-grow: 1;
+    }
+
+    #a3 {
+        flex-shrink: 0;
+        text-align: right;
+    }
+
+    .hedercart p {
+        margin: 0;
+    }
+
+    .hedercart a {
+        text-decoration: none;
+        color: #137231;
+    }
+
+    /* Stile del footer del carrello */
+    .footerCart {
+        background-color: #f9f9f9;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #cccccc;
+    }
+
+    #a4 {
+        flex-grow: 1;
+    }
+
+    #a7 {
+        flex-shrink: 0;
+    }
+
+    /* Stile del pulsante Procedi all'acquisto */
+    .button {
+        background-color: #137231;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .button:hover {
+        background-color: #0d551c;
+    }</style>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
@@ -20,7 +110,7 @@
 <!-- header -->
 
 
-
+<jsp:include page="navbarUtente.jsp"></jsp:include>
 
 <!-- barra di navigazione  -->
 

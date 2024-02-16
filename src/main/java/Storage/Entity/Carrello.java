@@ -9,7 +9,9 @@ import java.util.ArrayList;
 public class Carrello {
     private ArrayList<ProdottoCarrello> carrello;
 
-
+    public ArrayList<ProdottoCarrello> getCarrello(){
+        return carrello;
+    }
     public Carrello(){
         this.carrello = new ArrayList<>();
     }
@@ -18,9 +20,6 @@ public class Carrello {
         return carrello;
     }
 
-    public ArrayList<ProdottoCarrello> getCarrello(){
-        return carrello;
-    }
     public void setCarrello(ArrayList<ProdottoCarrello> cartItems) {
         this.carrello = cartItems;
     }

@@ -49,6 +49,12 @@ public class AutenticazioneController extends HttpServlet {
                 address="/WEB-INF/Interface/Autenticazione/login.jsp";
                 req.getRequestDispatcher(address).forward(req,resp);
                 break;
+            case "/profile":
+                session.setAttribute("account", req.getSession().getAttribute("account"));
+                address="/WEB-INF/Interface/profile.jsp";
+                System.out.println(" sono in profile" );
+                req.getRequestDispatcher(address).forward(req,resp);
+                break;
             case "/login":
                 try {
                     Utente utente = service.login(email,password);
@@ -58,7 +64,7 @@ public class AutenticazioneController extends HttpServlet {
                         session.setAttribute("account", utente);
                         // Redirect alla home page dell'utente
                         if(utente.isAdmin()){
-                            address="dashboard";
+                            address="";
                         }
                         else {
                             Carrello carrello= (Carrello) session.getAttribute("cartSession");
@@ -67,7 +73,7 @@ public class AutenticazioneController extends HttpServlet {
                                 dao.addCart(carrello,utente.getMail());
                                 session.removeAttribute("cartSession");
                             }
-                            address="home";
+                            address="/homeUtente";
                         }
                     } else {
 
@@ -91,6 +97,10 @@ public class AutenticazioneController extends HttpServlet {
                 break;
             case "/homeAdmin":
                 dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/homeAdmin.jsp");
+                dispatcher.forward(req,resp);
+                break;
+            case "/home":
+                dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
                 dispatcher.forward(req,resp);
                 break;
             case "/homeUtente":
