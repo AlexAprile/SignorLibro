@@ -1,6 +1,7 @@
 package Storage.DAO;
 
 import Storage.ConPool;
+import Storage.ConPoolFacade;
 import Storage.Entity.Carrello;
 import Storage.Entity.Prodotto;
 import Storage.Entity.ProdottoCarrello;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class CarrelloDAO {
     public Carrello fetchCart(String email) {
-        try (Connection conn = ConPool.getConnection()) {
+        try (Connection conn = ConPoolFacade.getConnection()) {
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM carrello WHERE iduser=?;")) {
                 ps.setString(1,email);
                 ResultSet rs = ps.executeQuery();

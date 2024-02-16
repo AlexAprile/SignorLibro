@@ -1,6 +1,7 @@
 package Storage.DAO;
 
 import Storage.ConPool;
+import Storage.ConPoolFacade;
 import Storage.Entity.Utente;
 
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +19,7 @@ public class UtenteDAO {
 
 
     public static ArrayList<Utente> fetchUsers() throws SQLException, NoSuchAlgorithmException {
-        try(Connection conn= ConPool.getConnection()){
+        try(Connection conn= ConPoolFacade.getConnection()){
             try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user;")){
                 ResultSet rs= ps.executeQuery();
                 ArrayList<Utente> accounts=new ArrayList<>();
@@ -49,7 +50,7 @@ public class UtenteDAO {
         }
     }
     public Utente fetchUser(String email) throws SQLException, NoSuchAlgorithmException {
-        try(Connection conn= ConPool.getConnection()){
+        try(Connection conn= ConPoolFacade.getConnection()){
             try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user WHERE Email=?")){
                 ps.setString(1,email);
                 ResultSet rs= ps.executeQuery();
@@ -75,7 +76,7 @@ public class UtenteDAO {
     }
 
     public Utente fetchAccountWithPsw(String email,String psw) throws SQLException, NoSuchAlgorithmException {
-        try(Connection conn= ConPool.getConnection()){
+        try(Connection conn= ConPoolFacade.getConnection()){
             try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user WHERE email=? AND Password=?")){
                 ps.setString(1,email);
                 ps.setString(2,psw);
@@ -94,7 +95,7 @@ public class UtenteDAO {
         }
     }
     public Integer createUser(Utente user){
-        try (Connection conn= ConPool.getConnection()){
+        try (Connection conn= ConPoolFacade.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("INSERT INTO user (Email,Password,Nome,Cognome, Data_di_nascita,Amministratore) VALUES (?,?,?,?,?,?);")){
                 ps.setString(1,user.getMail());
                 ps.setString(2,user.getPassword());
@@ -111,7 +112,7 @@ public class UtenteDAO {
     }
 
     public Integer deleteUser(String email) throws SQLException {
-        try (Connection conn= ConPool.getConnection()){
+        try (Connection conn= ConPoolFacade.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("DELETE FROM user WHERE Email=?")){
                 ps.setString(1,email);
                 return ps.executeUpdate();
@@ -120,7 +121,7 @@ public class UtenteDAO {
     }
 
     public Integer updateUtente(Utente utente) throws SQLException {
-        try (Connection conn= ConPool.getConnection()){
+        try (Connection conn= ConPoolFacade.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("UPDATE  account SET nome=?, cognome=?, password=? WHERE email=?")){
                 ps.setString(1, utente.getNome());
                 ps.setString(2,utente.getCognome());
@@ -134,7 +135,7 @@ public class UtenteDAO {
     public ArrayList<Utente> searchAllAccount() throws SQLException {
 
 
-        try(Connection connection=ConPool.getConnection()) {
+        try(Connection connection=ConPoolFacade.getConnection()) {
             String query="SELECT * FROM user AS us WHERE amministratore=0;";
 
             try(PreparedStatement ps = connection.prepareStatement(query)) {

@@ -5,7 +5,7 @@
     <title>Signor Libro</title>
     <link rel="icon" type="image/x-icon" href="./icons/vettoreVerde.png">
     <jsp:include page="WEB-INF/Interface/navbar.jsp"></jsp:include>
-    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <link rel="stylesheet" type="text/css" href="src/main/webapp/CSS/styles.css">
 </head>
 <body>
 <h1 class="title">Signor Libro</h1>

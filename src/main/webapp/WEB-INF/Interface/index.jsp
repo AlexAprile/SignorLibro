@@ -36,8 +36,32 @@
     </style>
     <title>Signor Libro</title>
     <link rel="icon" type="image/x-icon" href="./icons/vettoreVerde.png">
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    body{
+        margin: 0;
+        overflow-y: scroll;
+    }
+
+    div.title {
+        text-align:center;
+        background-color: #137231;
+        padding: 20px;
+        margin: 0;
+        font-family: "Comic Sans MS", sans-serif;
+    }
+
+    h1.title {
+        color: #137231;
+        text-align: center;
+        font-family: "Comic Sans MS", sans-serif;
+        font-weight: bold;
+    }
+</style>
+
 </head>
 <body>
 <jsp:include page="navbar.jsp"></jsp:include>
