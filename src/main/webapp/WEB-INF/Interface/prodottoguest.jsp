@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Storage.Entity.Prodotto" %><%--
   Created by IntelliJ IDEA.
   User: utente
   Date: 14/02/2024
@@ -12,12 +12,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-    <jsp:include page="/WEB-INF/Interface/head.jsp" >
-        <jsp:param name="title" value="Prodotto"/>
-        <jsp:param name="script" value="jqueryfunction.js"/>
-
-    </jsp:include>
 
 
     <style>

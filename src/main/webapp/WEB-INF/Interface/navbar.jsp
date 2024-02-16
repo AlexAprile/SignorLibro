@@ -5,7 +5,10 @@
     <style>body {
         margin:0;
     }
-
+    li div.search input[type="text"],
+    li div.search button[type="submit"] {
+        vertical-align: middle;
+    }
     ul.navbar {
         list-style-type: none;
         margin: 0;

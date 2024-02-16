@@ -82,7 +82,7 @@
     <p></p>
     <button class="button"  type="submit" >login</button>
   </form>
-  <form action="/SignorLibro_war/registrazione-controller">
+  <form action="/SignorLibro_war/RegistrazioneController">
     <button class="button"  type="submit" >Registrati</button>
   </form>
 </fieldset>

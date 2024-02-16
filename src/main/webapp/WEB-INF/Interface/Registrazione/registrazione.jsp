@@ -80,7 +80,7 @@
 <fieldset class="titolo">
   <legend>Form inserimento:</legend>
 
-  <form action="registrazione-controller" method="post">
+  <form action="/SignorLibro_war/RegistrazioneController" method="post">
     <c:if test="${not empty alert}">
       <%@ include file="/WEB-INF/Interface/errori/alert.jsp"%>
     </c:if>

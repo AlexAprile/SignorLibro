@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
-@WebServlet("/registrazione-controller")
+@WebServlet(name = "RegistrazioneController", value = "/RegistrazioneController")
 public class RegistrazioneController extends HttpServlet {
 
     /**
