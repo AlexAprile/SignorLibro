@@ -192,4 +192,11 @@ public class GestioneAcquistiService {
             dispatcher.forward(request, response);
         }
     }
+
+    public Ordine getOrdine(int id) throws SQLException {
+        OrdineDAO od = new OrdineDAO();
+        Ordine o;
+        o = od.searchOrderFromId(id);
+        return o;
+    }
 }

@@ -48,7 +48,7 @@ public class RegistrazioneController extends HttpServlet {
                     //else{ //registrazione dell'utente
                     RegistrazioneService service = new RegistrazioneService();
                     try {
-                        address = service.registraUtente(request, response);
+                        address = service.registrazioneUtente(request, response);
                          rd = request.getRequestDispatcher(address);
                         rd.forward(request, response);
                     } catch (NoSuchAlgorithmException e) {
