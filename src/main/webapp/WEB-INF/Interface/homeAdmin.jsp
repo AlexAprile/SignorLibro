@@ -85,13 +85,14 @@
 
     <div class="divsCenter">
       <h3>Numero prodotti</h3>
-      <p>${n_products}</p>
+        <a href="/SignorLibro_war/GestioneProdottoController/prodottiAdmin">
+            <p>${n_products}</p></a>
     </div>
-
+      <a href="/SignorLibro_war/AutenticazioneController/accountsAdmin">
     <div class="divsCenter">
       <h3>Numero clienti registrati</h3>
       <p>${n_client}</p>
-    </div>
+    </div></a>
 
     <div class="divsCenter">
       <h3>Numero ordini mensili</h3>

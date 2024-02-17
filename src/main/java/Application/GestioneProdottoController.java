@@ -2,7 +2,10 @@ package Application;
 
 import Storage.DAO.ProdottoDAO;
 import Storage.Entity.Prodotto;
+import Storage.Entity.Utente;
 import Storage.GestioneProdottoService;
+import http.ErrorHandler;
+import http.InvalidRequestException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -60,6 +63,27 @@ public class GestioneProdottoController extends HttpServlet {
                 dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
                 dispatcher.forward(req,resp);
                 break;
+            case "/prodottiAdmin":
+                ErrorHandler handler=new ErrorHandler();
+                try {
+                    handler.authorize(req.getSession(false));
+
+                } catch (InvalidRequestException e) {
+                    throw new RuntimeException(e);
+                }
+                ProdottoDAO dao=new ProdottoDAO();
+                try {
+                    ArrayList<Prodotto> prodotti=dao.cercaTuttiProdotti();
+                    for (Prodotto temp:prodotti)
+                        System.out.println(temp.getTitolo());
+                    req.setAttribute("products",prodotti);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/prodottiAdmin.jsp");
+                dispatcher.forward(req,resp);
+                break;
             case "/showProduct":
                 try {
                     product=sqlProductDao.cercaPerISBN(req.getParameter("isbn"));
@@ -85,8 +109,8 @@ public class GestioneProdottoController extends HttpServlet {
 
                 break;
             case "/risultati":
-                ProdottoDAO dao=new ProdottoDAO();
-                ArrayList<Prodotto> prodotti= (ArrayList<Prodotto>) dao.search(req.getParameter("ricerca"));
+                ProdottoDAO DAO=new ProdottoDAO();
+                ArrayList<Prodotto> prodotti= (ArrayList<Prodotto>) DAO.search(req.getParameter("ricerca"));
                 req.setAttribute("vetrina",prodotti);
                 dispatcher= req.getRequestDispatcher("/WEB-INF/Interface/prodotti.jsp");
                 dispatcher.forward(req,resp);

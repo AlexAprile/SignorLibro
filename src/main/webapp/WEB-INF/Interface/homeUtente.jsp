@@ -1,3 +1,4 @@
+<%@ page import="Storage.Entity.Utente" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -44,7 +45,13 @@
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>
-<jsp:include page="navbarUtente.jsp"></jsp:include>
+
+<%
+        Utente utente= (Utente) request.getAttribute("account");
+        if(utente==null){%>
+<jsp:include page="navbar.jsp"></jsp:include>
+<%}else{%><jsp:include page="navbarUtente.jsp"></jsp:include><%}%>
+
 <h1 class="title">Signor Libro</h1>
 <div>
     <img src="./icons/logoVerde.png" alt="SignorLibro Logo" title="SignorLibro Logo">

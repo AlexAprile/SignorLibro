@@ -9,6 +9,8 @@ import Storage.Entity.Carrello;
 import Storage.Entity.Ordine;
 import Storage.Entity.Prodotto;
 import Storage.Entity.Utente;
+import http.ErrorHandler;
+import http.InvalidRequestException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -55,6 +57,20 @@ public class AutenticazioneController extends HttpServlet {
                 System.out.println(" sono in profile" );
                 req.getRequestDispatcher(address).forward(req,resp);
                 break;
+            case"/accountsAdmin":
+                ErrorHandler handler=new ErrorHandler();
+                try {
+                    handler.authenicate((HttpSession) req.getSession());
+                    UtenteDAO dao=new UtenteDAO();
+                    ArrayList<Utente> utenti=dao.searchAllAccount();
+                    req.setAttribute("accounts",utenti);
+                    req.getRequestDispatcher("/WEB-INF/Interface/accountAdmin.jsp").forward(req,resp);
+                } catch (InvalidRequestException e) {
+                    throw new RuntimeException(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             case "/login":
                 try {
                     Utente utente = service.login(email,password);
@@ -64,7 +80,7 @@ public class AutenticazioneController extends HttpServlet {
                         session.setAttribute("account", utente);
                         // Redirect alla home page dell'utente
                         if(utente.isAdmin()){
-                            address="";
+                            address="/WEB-INF/Interface/homeAdmin.jsp";
                         }
                         else {
                             Carrello carrello= (Carrello) session.getAttribute("cartSession");

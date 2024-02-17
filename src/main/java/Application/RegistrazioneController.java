@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
-@WebServlet(name = "RegistrazioneController", value = "/RegistrazioneController")
+@WebServlet(name = "RegistrazioneController", value = "/RegistrazioneController/*")
 public class RegistrazioneController extends HttpServlet {
 
     /**
@@ -31,27 +31,40 @@ public class RegistrazioneController extends HttpServlet {
         HttpSession session = request.getSession();
         Utente utente = (Utente) session.getAttribute("utente");
 
-        if(utente == null){
+        RequestDispatcher rd;
 
-            if(request.getParameter("utente") == null) //non registarto
-                address = "./WEB-INF/Interface/Registrazione/registrazione.jsp";
-            else{ //registrazione dell'utente
-                RegistrazioneService service=new RegistrazioneService();
-                try {
-                    address = service.registraUtente(request,response);
-                } catch (NoSuchAlgorithmException e) {
-                    throw new RuntimeException(e);
-                } catch (InvalidRequestException e) {
-                    e.handle(request, response);
+        String path=(request.getPathInfo()!=null) ? request.getPathInfo():"/";
+        switch (path) {
+            case "/paginaSingup":
+                address = "/WEB-INF/Interface/Registrazione/registrazione.jsp";
+                rd = request.getRequestDispatcher(address);
+                rd.forward(request, response);
+                break;
+            case "/registra":
+                if (utente == null) {
+
+                    /*if(request.getParameter("utente") == null) //non registarto*/
+                    //address = "./WEB-INF/Interface/Registrazione/registrazione.jsp";
+                    //else{ //registrazione dell'utente
+                    RegistrazioneService service = new RegistrazioneService();
+                    try {
+                        address = service.registraUtente(request, response);
+                         rd = request.getRequestDispatcher(address);
+                        rd.forward(request, response);
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvalidRequestException e) {
+                        e.handle(request, response);
+                    }
+                } else {
+                    address = "./WEB-INF/account.jsp"; //mandato alla pagina dell'account
+                     rd = request.getRequestDispatcher(address);
+                    rd.forward(request, response);
                 }
-            }
+                break;
         }
-        else {
-            address = "./WEB-INF/account.jsp"; //mandato alla pagina dell'account
-        }
-
-        RequestDispatcher rd = request.getRequestDispatcher(address);
-        rd.forward(request, response);
+        /*RequestDispatcher rd = request.getRequestDispatcher(address);
+        rd.forward(request, response);*/
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
