@@ -24,7 +24,7 @@ public class RegistrazioneService {
      * dopo aver controllato che tutti i parametri di registrazione rispettino le regole previste
      * altrimenti pagina registrazione con messaggio di errore
      * */
-    public String registraUtente(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, InvalidRequestException {
+    public String registrazioneUtente(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, InvalidRequestException {
         String address;
 
         String email = request.getParameter("email");

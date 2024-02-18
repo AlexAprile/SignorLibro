@@ -71,4 +71,24 @@ public class OrdineDAO {
             }
         }
     }
+
+    public Ordine searchOrderFromId(int id) throws SQLException {
+        try (Connection connection = ConPool.getConnection()) {
+            String query = "SELECT * FROM ordine WHERE id = ?;";
+
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+
+                Ordine order = null;
+                OrderExtractor orderExtractor = new OrderExtractor();
+
+                if (rs.next()) {
+                    order = orderExtractor.extract(rs);
+                }
+                return order;
+            }
+        }
+    }
+
 }
