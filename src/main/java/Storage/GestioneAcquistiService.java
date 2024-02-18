@@ -14,10 +14,19 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+/**
+ * Classe che gestisce le operazioni di acquisto e gestione del carrello.
+ */
 public class GestioneAcquistiService {
     RequestDispatcher dispatcher;
-
+    /**
+     * Aggiunge un prodotto al carrello dell'utente.
+     *
+     * @param ISBN_prodotto l'ISBN del prodotto da aggiungere al carrello
+     * @param request la richiesta HTTP
+     * @param response la risposta HTTP
+     * @return true se il prodotto viene aggiunto con successo al carrello, false altrimenti
+     */
     public boolean aggiungiProdottoAlCarrello(String ISBN_prodotto,HttpServletRequest request, HttpServletResponse response){
 
         try {
@@ -64,6 +73,14 @@ public class GestioneAcquistiService {
 
         return false;
     }
+    /**
+     * Aggiunge un prodotto al carrello dell'utente autenticato.
+     *
+     * @param ISBN_prodotto l'ISBN del prodotto da aggiungere al carrello
+     * @param request la richiesta HTTP
+     * @param response la risposta HTTP
+     * @return true se il prodotto viene aggiunto con successo al carrello, false altrimenti
+     */
     public boolean aggiungiProdottoAlCarrelloUtente(String ISBN_prodotto,HttpServletRequest request, HttpServletResponse response){
 
         try {
@@ -112,7 +129,13 @@ public class GestioneAcquistiService {
     }
 
 
-
+    /**
+     * Rimuove un prodotto dal carrello dell'utente.
+     *
+     * @param isbn l'ISBN del prodotto da rimuovere dal carrello
+     * @param request la richiesta HTTP
+     * @param response la risposta HTTP
+     */
     public void rimuoviProdottoDalCarrello(String isbn, HttpServletRequest request, HttpServletResponse response) {
 
         String idProdotto2 = request.getParameter("isbn");
@@ -133,6 +156,13 @@ public class GestioneAcquistiService {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * Rimuove un prodotto dal carrello dell'utente autenticato.
+     *
+     * @param isbn l'ISBN del prodotto da rimuovere dal carrello
+     * @param request la richiesta HTTP
+     * @param response la risposta HTTP
+     */
     public void rimuoviProdottoDalCarrelloUtente(String isbn, HttpServletRequest request, HttpServletResponse response) {
 
         String idProdotto2 = request.getParameter("isbn");
@@ -153,6 +183,15 @@ public class GestioneAcquistiService {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Crea un nuovo ordine utilizzando i prodotti presenti nel carrello.
+     *
+     * @param request la richiesta HTTP
+     * @param response la risposta HTTP
+     * @throws ServletException se si verifica un errore durante la gestione della servlet
+     * @throws IOException se si verifica un errore di I/O durante la gestione della servlet
+     */
     public void creaOrdine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Carrello cart= (Carrello) request.getSession(false).getAttribute("carrello");

@@ -8,7 +8,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Classe che gestisce le operazioni di accesso e manipolazione dei dati degli utenti nel database.
+ */
 public class UtenteDAO {
     /**
      * restituisce gli account presenti nel DB
@@ -17,7 +19,13 @@ public class UtenteDAO {
      * @throws NoSuchAlgorithmException
      */
 
-
+    /**
+     * Recupera tutti gli account utente dal database.
+     *
+     * @return un ArrayList contenente tutti gli account utente presenti nel database
+     * @throws SQLException se si verifica un errore durante l'interazione con il database
+     * @throws NoSuchAlgorithmException se si verifica un errore durante l'uso di un algoritmo di hash
+     */
     public static ArrayList<Utente> fetchUsers() throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPoolFacade.getConnection()){
             try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user;")){
@@ -49,6 +57,14 @@ public class UtenteDAO {
             }
         }
     }
+    /**
+     * Recupera un account utente dal database utilizzando l'indirizzo email.
+     *
+     * @param email l'indirizzo email dell'account utente da recuperare
+     * @return l'oggetto Utente corrispondente all'indirizzo email specificato
+     * @throws SQLException se si verifica un errore durante l'interazione con il database
+     * @throws NoSuchAlgorithmException se si verifica un errore durante l'uso di un algoritmo di hash
+     */
     public Utente fetchUser(String email) throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPoolFacade.getConnection()){
             try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user WHERE Email=?")){
@@ -75,6 +91,15 @@ public class UtenteDAO {
         }
     }
 
+    /**
+     * Recupera un account utente dal database utilizzando l'indirizzo email e la password.
+     *
+     * @param email l'indirizzo email dell'account utente
+     * @param psw la password dell'account utente
+     * @return l'oggetto Utente corrispondente all'indirizzo email e alla password specificati
+     * @throws SQLException se si verifica un errore durante l'interazione con il database
+     * @throws NoSuchAlgorithmException se si verifica un errore durante l'uso di un algoritmo di hash
+     */
     public Utente fetchAccountWithPsw(String email,String psw) throws SQLException, NoSuchAlgorithmException {
         try(Connection conn= ConPoolFacade.getConnection()){
             try(PreparedStatement ps=conn.prepareStatement("SELECT * FROM user WHERE email=? AND Password=?")){
@@ -94,6 +119,12 @@ public class UtenteDAO {
             }
         }
     }
+    /**
+     * Crea un nuovo account utente nel database.
+     *
+     * @param user l'oggetto Utente da creare
+     * @return il numero di righe modificate nel database
+     */
     public Integer createUser(Utente user){
         try (Connection conn= ConPoolFacade.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("INSERT INTO user (Email,Password,Nome,Cognome, Data_di_nascita,Amministratore) VALUES (?,?,?,?,?,?);")){
@@ -110,7 +141,13 @@ public class UtenteDAO {
         }
 
     }
-
+    /**
+     * Elimina un account utente dal database utilizzando l'indirizzo email.
+     *
+     * @param email l'indirizzo email dell'account utente da eliminare
+     * @return il numero di righe modificate nel database
+     * @throws SQLException se si verifica un errore durante l'interazione con il database
+     */
     public Integer deleteUser(String email) throws SQLException {
         try (Connection conn= ConPoolFacade.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("DELETE FROM user WHERE Email=?")){
@@ -119,6 +156,13 @@ public class UtenteDAO {
             }
         }
     }
+    /**
+     * Aggiorna un account utente nel database.
+     *
+     * @param utente l'oggetto Utente da aggiornare
+     * @return il numero di righe modificate nel database
+     * @throws SQLException se si verifica un errore durante l'interazione con il database
+     */
 
     public Integer updateUtente(Utente utente) throws SQLException {
         try (Connection conn= ConPoolFacade.getConnection()){
@@ -131,7 +175,12 @@ public class UtenteDAO {
             }
         }
     }
-
+    /**
+     * Recupera tutti gli account utente non amministratori dal database.
+     *
+     * @return un ArrayList contenente tutti gli account utente non amministratori presenti nel database
+     * @throws SQLException se si verifica un errore durante l'interazione con il database
+     */
     public ArrayList<Utente> searchAllAccount() throws SQLException {
 
 
