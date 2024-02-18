@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.TimeZone;
 
-public class ConPool {
+public class ConPool  {
     private static DataSource dataSource;
 
     // Inizializzazione del pool di connessioni

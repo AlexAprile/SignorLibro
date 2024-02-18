@@ -34,7 +34,7 @@ public class CarrelloDAO {
         }
     }
     public void addCart(Carrello carrello,String email){
-        try (Connection conn= ConPool.getConnection()){
+        try (Connection conn= ConPoolFacade.getConnection()){
             List<ProdottoCarrello> items=carrello.getCartItems();
             for(ProdottoCarrello item:items){
                 addItem(item,email);
@@ -45,7 +45,7 @@ public class CarrelloDAO {
     }
 
     public void deleteCart(String email){
-        try (Connection conn= ConPool.getConnection()){
+        try (Connection conn= ConPoolFacade.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("DELETE FROM carrello WHERE iduser=?")){
                 ps.setString(1,email);
                 ps.executeUpdate();
@@ -56,7 +56,7 @@ public class CarrelloDAO {
     }
 
     public Integer addItem(ProdottoCarrello item,String email){
-        try (Connection conn= ConPool.getConnection()){
+        try (Connection conn= ConPoolFacade.getConnection()){
             List<ProdottoCarrello> items=fetchCart(email).getCartItems();
             for (ProdottoCarrello tmp:items)
                 if(tmp.getProdotto().getId()==item.getProdotto().getId()){
@@ -75,7 +75,7 @@ public class CarrelloDAO {
         }
     }
     public Integer deleteItem(int id,String email) throws SQLException {
-        try (Connection conn= ConPool.getConnection()){
+        try (Connection conn= ConPoolFacade.getConnection()){
             try (PreparedStatement ps= conn.prepareStatement("DELETE FROM carrello WHERE idprodotti=? AND iduser=?")){
                 ps.setInt(1,id);
                 ps.setString(2,email);

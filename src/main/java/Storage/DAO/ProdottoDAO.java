@@ -1,6 +1,7 @@
 package Storage.DAO;
 
 import Storage.ConPool;
+import Storage.ConPoolFacade;
 import Storage.Entity.Prodotto;
 import Storage.Entity.ProdottoCarrello;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class ProdottoDAO {
 
     public ArrayList<Prodotto> cercaPerTitolo(String titolo) throws SQLException {
-        try(Connection connection= ConPool.getConnection()) {
+        try(Connection connection= ConPoolFacade.getConnection()) {
             String query = "SELECT *  FROM Prodotto AS pro WHERE (pro.titolo=?);";
             try (PreparedStatement ps = connection.prepareStatement(query)) {
                 ps.setString(1, titolo);
@@ -54,7 +55,7 @@ public class ProdottoDAO {
     }
 
     public ArrayList<Prodotto> cercaTuttiProdotti() throws SQLException {
-        try(Connection connection= ConPool.getConnection()) {
+        try(Connection connection= ConPoolFacade.getConnection()) {
             String query = "SELECT *  FROM Prodotto AS pro;";
             try (PreparedStatement ps = connection.prepareStatement(query)) {
                 ResultSet rs = ps.executeQuery();
@@ -102,7 +103,7 @@ public class ProdottoDAO {
 
     public boolean creaProdotto(Prodotto product) throws SQLException {
 
-        try(Connection connection=ConPool.getConnection()) {
+        try(Connection connection=ConPoolFacade.getConnection()) {
             String query1 = "INSERT INTO Prodotto(id, titolo, autore, ISBN, prezzo, data_pubblicazione,descrizione,copertina,categoria,Quantita) " +
                     "VALUES (?,?,?,?,?,?,?,?,?,?);";
 
@@ -132,7 +133,7 @@ public class ProdottoDAO {
 
     public boolean eliminaProdotto(int id) throws SQLException {
 
-        try(Connection connection=ConPool.getConnection()) {
+        try(Connection connection=ConPoolFacade.getConnection()) {
             String query = "DELETE FROM prodotto WHERE id=?; ";
 
             try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -145,7 +146,7 @@ public class ProdottoDAO {
 
     }
     public Integer updateProduct(Prodotto prodotto) throws SQLException {
-        Connection con=ConPool.getConnection();
+        Connection con=ConPoolFacade.getConnection();
         PreparedStatement ps=con.prepareStatement("UPDATE prodotti SET  Titolo=?,Autore=?, Prezzo=?,descrizione=?,Coperina=?, quantita=? WHERE ID=?");
         ps.setString(1,prodotto.getTitolo());
         ps.setString(2, prodotto.getAutore());
@@ -158,7 +159,7 @@ public class ProdottoDAO {
     }
 
     public Integer updateProductQ(ProdottoCarrello pc, Prodotto prodotto) throws SQLException {
-        Connection con=ConPool.getConnection();
+        Connection con=ConPoolFacade.getConnection();
         PreparedStatement ps=con.prepareStatement("UPDATE prodotti SET quantita=? WHERE ID=?");
         ps.setInt(1,pc.getQuantita()-1);
         ps.setInt(2,prodotto.getId());
@@ -166,7 +167,7 @@ public class ProdottoDAO {
     }
 
     public ArrayList<Prodotto> search(String value) {
-        try (Connection con = ConPool.getConnection()) {
+        try (Connection con = ConPoolFacade.getConnection()) {
 
             PreparedStatement ps = con.prepareStatement("select * from prodotto WHERE titolo LIKE ?");
             ps.setString(1,value+"%");

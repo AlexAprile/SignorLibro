@@ -1,6 +1,7 @@
 package Storage.DAO;
 
 import Storage.ConPool;
+import Storage.ConPoolFacade;
 import Storage.Entity.Ordine;
 import Storage.Entity.ProdottoCarrello;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class OrdineDAO {
 
     public boolean createOrder(Ordine order) throws SQLException {
-            try (Connection connection = ConPool.getConnection()) {
+            try (Connection connection = ConPoolFacade.getConnection()) {
             String query1 = "INSERT INTO Ordine(IdUser,dataOrdine) VALUES (?,?);";
             String query2 = "INSERT INTO ProdottoOrdine(idordine, idprodotto, Quantitaordine) VALUES (?,?,?);";
             connection.setAutoCommit(false);
@@ -53,7 +54,7 @@ public class OrdineDAO {
     }
 
     public ArrayList<Ordine> searchAllOrder() throws SQLException {
-        try(Connection connection=ConPool.getConnection()) {
+        try(Connection connection=ConPoolFacade.getConnection()) {
             String query="SELECT * FROM ordine AS ord;";
 
             try(PreparedStatement ps = connection.prepareStatement(query)) {
@@ -73,7 +74,7 @@ public class OrdineDAO {
     }
 
     public Ordine searchOrderFromId(int id) throws SQLException {
-        try (Connection connection = ConPool.getConnection()) {
+        try (Connection connection = ConPoolFacade.getConnection()) {
             String query = "SELECT * FROM ordine WHERE id = ?;";
 
             try (PreparedStatement ps = connection.prepareStatement(query)) {

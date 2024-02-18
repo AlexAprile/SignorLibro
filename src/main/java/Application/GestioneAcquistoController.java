@@ -60,19 +60,17 @@ public class GestioneAcquistoController extends HttpServlet {
                 gas.rimuoviProdottoDalCarrelloUtente(isbn,request,response);
                 break;
             case "/createOrder":
-                System.out.println("gay");
                 Carrello cart= (Carrello) request.getSession(false).getAttribute("carrello");
 
                 if(cart==null){
                     boolean carrellovuoto=true;
                     request.setAttribute("carrelloVuoto",carrellovuoto);
-                    System.out.println("gay vuoto");
 
                     dispatcher= request.getRequestDispatcher("/WEB-INF/Interface/homeUtente.jsp");
                     dispatcher.forward(request,response);
 
                 }else {
-                    System.out.println("gayss");
+
 
                     LocalDate data = LocalDate.now();
                     Utente account1 = (Utente) request.getSession(false).getAttribute("account");
@@ -91,7 +89,6 @@ public class GestioneAcquistoController extends HttpServlet {
                     request.getSession(false).setAttribute("totale", Math.round(cart.prezzoTotale()*100.0)/100.0);
                     request.getSession(false).setAttribute("quantity", cart.getCartItems().size());
 
-                    System.out.println("gaynto");
 
 
                     dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/homeUtente.jsp");
