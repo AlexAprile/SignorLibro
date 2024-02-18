@@ -3,6 +3,7 @@ package Storage;
 import Storage.DAO.UtenteDAO;
 import Storage.Entity.Utente;
 import http.AccountValidator;
+import http.AccountValidatorUpdate;
 import http.Controller;
 import http.InvalidRequestException;
 import jakarta.servlet.ServletException;
@@ -46,7 +47,7 @@ public class RegistrazioneService {
 
         request.setAttribute("back","/WEB-INF/Interface/Registrazione/registrazione.jsp");
         try {
-            Controller.validate(AccountValidator.validateUpForm(request,email,password));
+            Controller.validate(AccountValidatorUpdate.validateUpForm(request,email,nome,cognome,password,nascita));
         } catch (InvalidRequestException e) {
             try {
                 e.handle(request,response);
@@ -70,7 +71,7 @@ public class RegistrazioneService {
         UtenteDAO cdao = new UtenteDAO();
         cdao.createUser(utente);
 
-        address = "./WEB-INF/pagine/successo.jsp";
+        address = "/SignorLibro_war/AutenticazioneController/profile";
         request.setAttribute("utente", utente);
         request.getSession().setAttribute("utente", utente);
 

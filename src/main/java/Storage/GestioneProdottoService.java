@@ -16,10 +16,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GestioneProdottoService {
-    public Prodotto getProdottoPerIsbn(String isbn) throws SQLException {
+    public Prodotto getProdotto(String isbn) throws SQLException {
         return new ProdottoDAO().cercaPerISBN(isbn);
     }
-    public ArrayList<Prodotto> getAllProdotti() throws SQLException {
+    public ArrayList<Prodotto> getAllProdotto() throws SQLException {
         return new ProdottoDAO().cercaTuttiProdotti();
     }
     public boolean aggiungiProdotto(Prodotto prodotto, HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {

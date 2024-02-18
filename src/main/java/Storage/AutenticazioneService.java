@@ -9,25 +9,42 @@ import jakarta.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
-
+/**
+ * Classe che gestisce l'autenticazione degli utenti.
+ */
 public class AutenticazioneService {
 
-    public Utente login(String email,String password) throws SQLException, NoSuchAlgorithmException {
-        UtenteDAO dao=new UtenteDAO();
-        Utente utente=null;
-        if(!email.isEmpty()&&!password.isEmpty())
-            utente=dao.fetchAccountWithPsw(email, password);
+    /**
+     * Effettua il login dell'utente utilizzando l'email e la password fornite.
+     *
+     * @param email l'email dell'utente
+     * @param password la password dell'utente
+     * @return l'oggetto Utente corrispondente all'account autenticato, o null se l'autenticazione fallisce
+     * @throws SQLException se si verifica un errore durante l'accesso al database
+     * @throws NoSuchAlgorithmException se si verifica un errore durante l'algoritmo di hashing della password
+     */
+    public Utente login(String email, String password) throws SQLException, NoSuchAlgorithmException {
+        UtenteDAO dao = new UtenteDAO();
+        Utente utente = null;
+        if (!email.isEmpty() && !password.isEmpty())
+            utente = dao.fetchAccountWithPsw(email, password);
         return utente;
     }
 
-    public void logout(HttpSession session){
-        ErrorHandler service=new ErrorHandler();
+    /**
+     * Effettua il logout dell'utente dalla sessione specificata.
+     *
+     * @param session la sessione dell'utente
+     * @throws RuntimeException se si verifica un errore durante l'autenticazione della sessione
+     */
+    public void logout(HttpSession session) {
+        ErrorHandler service = new ErrorHandler();
         try {
             service.authenicate(session);
         } catch (InvalidRequestException e) {
             throw new RuntimeException(e);
         }
-        Utente utente= (Utente) session.getAttribute("utente");
+        Utente utente = (Utente) session.getAttribute("utente");
         session.removeAttribute("utente");
     }
 }
