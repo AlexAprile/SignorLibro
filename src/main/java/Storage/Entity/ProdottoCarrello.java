@@ -1,6 +1,6 @@
 package Storage.Entity;
 
-public class ProdottoCarrello {
+public class ProdottoCarrello extends Prodotto{
     private Prodotto prodotto;
     private int quantita;
 
