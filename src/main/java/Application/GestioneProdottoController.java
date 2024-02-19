@@ -44,8 +44,6 @@ public class GestioneProdottoController extends HttpServlet {
            throw new RuntimeException(e);
        }
        getServletContext().setAttribute("vetrina",prodotti);
-       System.out.println("ciao");
-       System.out.println("tutto sotto controllo per ora");
    }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -74,8 +72,6 @@ public class GestioneProdottoController extends HttpServlet {
                 ProdottoDAO dao=new ProdottoDAO();
                 try {
                     ArrayList<Prodotto> prodotti=dao.cercaTuttiProdotti();
-                    for (Prodotto temp:prodotti)
-                        System.out.println(temp.getTitolo());
                     req.setAttribute("products",prodotti);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -129,9 +125,6 @@ public class GestioneProdottoController extends HttpServlet {
 
                 ProdottoDAO productDao= new ProdottoDAO();
                 Prodotto product=new Prodotto();
-                System.out.println("forza napoli");
-                System.out.println(request.getParameter("quan"));
-                System.out.println(request.getParameter("nome"));
 
                 try {
 
@@ -150,8 +143,6 @@ public class GestioneProdottoController extends HttpServlet {
                     Part filePart = request.getPart("cover");
                     String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                     product.setCopertina(fileName);
-
-                    System.out.println("break");
 
                     if(productDao.creaProdotto(product)){
 

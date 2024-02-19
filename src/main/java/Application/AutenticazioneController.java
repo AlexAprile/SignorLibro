@@ -54,7 +54,6 @@ public class AutenticazioneController extends HttpServlet {
             case "/profile":
                 session.setAttribute("account", req.getSession().getAttribute("account"));
                 address="/WEB-INF/Interface/profile.jsp";
-                System.out.println(" sono in profile" );
                 req.getRequestDispatcher(address).forward(req,resp);
                 break;
             case"/accountsAdmin":
@@ -167,7 +166,6 @@ public class AutenticazioneController extends HttpServlet {
                 }
 
                 if (account == null) {
-                    System.out.println("account non esistente");
                     dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/index.jsp");
                     dispatcher.forward(request, response);
 
@@ -200,8 +198,6 @@ public class AutenticazioneController extends HttpServlet {
 
                         /*Numero ordini mensili*/
                         request.getSession(false).setAttribute("n_ordini", newOrdini.size());
-
-                        System.out.println("account admin");
 
                         session.setAttribute("account", account);
                         dispatcher = request.getRequestDispatcher("/WEB-INF/Interface/homeAdmin.jsp");
